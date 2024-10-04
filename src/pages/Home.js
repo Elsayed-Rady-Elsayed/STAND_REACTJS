@@ -25,8 +25,8 @@ import ic2 from "../assets/Icon-Customer service.png";
 import ic3 from "../assets/Icon-secure.png";
 const Home = () => {
   useEffect(() => {
-    console.log(window.screen.availWidth);
-  }, [window.screen.availWidth]);
+    console.log(window.innerWidth);
+  }, [window.innerWidth]);
 
   return (
     <div className="md:w-[90%] w-full m-auto">
@@ -151,7 +151,11 @@ const Home = () => {
         </div>
 
         <div className="mt-5 relative">
-          <img src={elipse} className="absolute w-full h-[100%] z-20" alt="" />
+          <img
+            src={elipse}
+            className="absolute w-full h-[100%]  z-20 "
+            alt=""
+          />
 
           <img src={jbl} className="relative z-20" alt="" />
         </div>
@@ -164,21 +168,41 @@ const Home = () => {
             Explore Our Products
           </h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
-            return (
-              <Card
-                label={idx % 2 == 0 && "new"}
-                image={coat}
-                title="the north coat"
-                price={`$${260}`}
-                oldPrice={`$${350}`}
-                stars={[1, 2, 3]}
-                reviews={22}
-              />
-            );
-          })}
-        </div>
+        {window.innerWidth > 980 ? (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
+              return (
+                <Card
+                  label={idx % 2 == 0 && "new"}
+                  image={coat}
+                  title="the north coat"
+                  price={`$${260}`}
+                  oldPrice={`$${350}`}
+                  stars={[1, 2, 3]}
+                  reviews={22}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="slider-container mb-[5rem]">
+            <PorductCarusal>
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
+                return (
+                  <Card
+                    image={coat}
+                    title="the north coat"
+                    price={`$${260}`}
+                    oldPrice={`$${350}`}
+                    stars={[1, 2, 3]}
+                    reviews={22}
+                  />
+                );
+              })}
+            </PorductCarusal>
+          </div>
+        )}
+
         <Button colorScheme="red" size="lg">
           View All Products
         </Button>

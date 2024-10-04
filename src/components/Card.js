@@ -1,9 +1,10 @@
-import React from "react";
-
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
 const Card = (props) => {
+  const cardRef = useRef();
   return (
     <div className="relative min-w-[270px] h-[370px] mx-2">
-      <div className="absolute end-3 top-5 gap-4 flex flex-col ">
+      <div className="absolute end-3 top-5 gap-4 flex flex-col z-50">
         <span className="bg-white w-10 h-10 flex items-center justify-center pt-1 rounded-full cursor-pointer">
           <i
             className="fa-regular fa-heart fa-lg"
@@ -27,9 +28,26 @@ const Card = (props) => {
         </span>
       )}
 
-      <div className="flex flex-col justify-between items-start gap-2">
-        <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center">
+      <div
+        className="flex flex-col justify-between items-start gap-2"
+        onClick={() => {
+          cardRef.current.classList.toggle("hidden");
+        }}
+      >
+        <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center relative">
           <img className="" src={props.image} alt="" />
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            whileInView={{
+              opacity: 1,
+            }}
+            className="bg-black text-white w-full p-2 absolute bottom-0 cursor-pointer hidden"
+            ref={cardRef}
+          >
+            add to cart
+          </motion.div>
         </div>
         <p className="font-bold capitalize">{props.title}</p>
         <div>
