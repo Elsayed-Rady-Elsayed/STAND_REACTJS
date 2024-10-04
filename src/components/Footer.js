@@ -96,7 +96,7 @@ const Footer = () => {
             <li>
               <a href="">
                 <i
-                  class="fa-brands fa-facebook-f fa-lg"
+                  className="fa-brands fa-facebook-f fa-lg"
                   style={{
                     color: "#ffffff",
                   }}
@@ -106,7 +106,7 @@ const Footer = () => {
             <li>
               <a href="">
                 <i
-                  class="fa-brands fa-x-twitter fa-lg"
+                  className="fa-brands fa-x-twitter fa-lg"
                   style={{
                     color: "#ffffff",
                   }}
@@ -116,7 +116,7 @@ const Footer = () => {
             <li>
               <a href="">
                 <i
-                  class="fa-brands fa-linkedin-in fa-lg"
+                  className="fa-brands fa-linkedin-in fa-lg"
                   style={{
                     color: "#ffffff",
                   }}
@@ -126,7 +126,7 @@ const Footer = () => {
             <li>
               <a href="">
                 <i
-                  class="fa-brands fa-github fa-lg"
+                  className="fa-brands fa-github fa-lg"
                   style={{
                     color: "#ffffff",
                   }}

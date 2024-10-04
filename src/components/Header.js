@@ -52,8 +52,8 @@ const Header = () => {
                 focusBorderColor="red"
               />
             </InputGroup>
-            <i class="fa-regular fa-heart fa-lg" style={{}}></i>
-            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+            <i className="fa-regular fa-heart fa-lg" style={{}}></i>
+            <i className="fa-solid fa-cart-shopping fa-lg"></i>
           </div>
         </div>
       </div>

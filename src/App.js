@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Login from "./pages/Login";
 function App() {
   return (
-    <div className="App overflow-hidden">
+    <div className="App overflow-hidden ">
       <PreHeader />
       <Header />
       <Routes>
