@@ -6,7 +6,7 @@ const Header = () => {
   const headerRef = useRef();
   return (
     <div className="border-b border-gray-200 relative">
-      <div className="flex justify-between items-center p-5 w-[90%] m-auto">
+      <div className="flex justify-between items-center md:p-5 py-2 px-2 md:px-0 md:w-[90%] m-auto">
         <div className="logo font-bold text-2xl">Exclusive</div>
         <span
           className="block md:hidden"
@@ -52,7 +52,9 @@ const Header = () => {
                 focusBorderColor="red"
               />
             </InputGroup>
-            <i className="fa-regular fa-heart fa-lg" style={{}}></i>
+            <Link to={"/favourits"}>
+              <i className="fa-regular fa-heart fa-lg" style={{}}></i>
+            </Link>
             <i className="fa-solid fa-cart-shopping fa-lg"></i>
           </div>
         </div>

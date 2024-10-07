@@ -7,7 +7,11 @@ const Card = (props) => {
       <div className="absolute end-3 top-5 gap-4 flex flex-col z-50">
         <span className="bg-white w-10 h-10 flex items-center justify-center pt-1 rounded-full cursor-pointer">
           <i
-            className="fa-regular fa-heart fa-lg"
+            className={
+              props.isRemove
+                ? "fa-solid fa-trash fa-lg"
+                : "fa-regular fa-heart fa-lg"
+            }
             style={{
               color: "#000000",
             }}

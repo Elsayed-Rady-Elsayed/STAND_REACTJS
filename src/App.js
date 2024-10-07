@@ -9,6 +9,7 @@ import PreHeader from "./components/PreHeader";
 import Register from "./pages/Register";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
+import WishList from "./pages/WishList";
 function App() {
   return (
     <div className="App overflow-hidden ">
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<Register />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/favourits" element={<WishList />} />
       </Routes>
       <Footer />
     </div>
