@@ -55,7 +55,9 @@ const Header = () => {
             <Link to={"/favourits"}>
               <i className="fa-regular fa-heart fa-lg" style={{}}></i>
             </Link>
-            <i className="fa-solid fa-cart-shopping fa-lg"></i>
+            <Link to={"/cart"}>
+              <i className="fa-solid fa-cart-shopping fa-lg"></i>
+            </Link>
           </div>
         </div>
       </div>
