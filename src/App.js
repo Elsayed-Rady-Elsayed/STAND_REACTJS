@@ -10,27 +10,25 @@ import Login from "./pages/Login";
 import WishList from "./pages/WishList";
 import Cart from "./pages/Cart";
 import Billing from "./pages/Billing";
+import About from "./pages/About";
+import Error404 from "./pages/Error404";
+import Contact from "./pages/Contact";
 function App() {
   return (
     <div className="App overflow-hidden ">
       <PreHeader />
       <Header />
-      <Billing />
-      {/* <Routes>
-        <Route
-          path="*"
-          element={
-            <>
-              <h2>NOT FOUND 404</h2>
-            </>
-          }
-        />
+      {/* <Billing /> */}
+      <Routes>
+        <Route path="*" element={<Error404 />} />
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/favourits" element={<WishList />} />
         <Route path="/Cart" element={<Cart />} />
-      </Routes> */}
+        <Route path="/AboutUs" element={<About />} />
+        <Route path="/ContactUs" element={<Contact />} />{" "}
+      </Routes>
       <Footer />
     </div>
   );

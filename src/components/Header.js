@@ -26,10 +26,10 @@ const Header = () => {
                 <Link to={"/"}>Home</Link>
               </li>
               <li>
-                <Link to={"/users"}>Contact</Link>
+                <Link to={"/ContactUs"}>Contact</Link>
               </li>
               <li>
-                <Link to={"/orders"}>About</Link>
+                <Link to={"/AboutUs"}>About</Link>
               </li>
               <li>
                 <Link to={"/SignUp"}>Sign Up</Link>
