@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 const Card = (props) => {
   const cardRef = useRef();
   return (
@@ -17,14 +18,16 @@ const Card = (props) => {
             }}
           ></i>
         </span>
-        <span className="bg-white w-10 h-10 flex items-center justify-center pt-1 rounded-full cursor-pointer">
-          <i
-            className="fa-regular fa-eye fa-lg"
-            style={{
-              color: "#000000",
-            }}
-          ></i>
-        </span>
+        <Link to={"productDetails"}>
+          <span className="bg-white w-10 h-10 flex items-center justify-center pt-1 rounded-full cursor-pointer">
+            <i
+              className="fa-regular fa-eye fa-lg"
+              style={{
+                color: "#000000",
+              }}
+            ></i>
+          </span>
+        </Link>
       </div>
       {props.label && (
         <span className="bg-[#00FF66] absolute start-3 top-3 rounded text-sm px-1 text-white capitalize">
