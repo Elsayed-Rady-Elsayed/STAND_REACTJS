@@ -23,6 +23,7 @@ import f5 from "../assets/Frame4.png";
 import ic1 from "../assets/icon-delivery.png";
 import ic2 from "../assets/Icon-Customer service.png";
 import ic3 from "../assets/Icon-secure.png";
+import { Link } from "react-router-dom";
 const Home = () => {
   useEffect(() => {
     console.log(window.innerWidth);
@@ -113,9 +114,11 @@ const Home = () => {
           <h3 className="text-2xl font-bold text-start">
             Best Selling Products
           </h3>
-          <Button colorScheme="red" size="lg" className="z-50">
-            View All Products
-          </Button>
+          <Link to={"/ShopAll"}>
+            <Button colorScheme="red" size="lg" className="z-50">
+              View All Products
+            </Button>
+          </Link>
         </div>
         <div className="slider-container mb-[5rem]">
           <PorductCarusal>
@@ -224,9 +227,11 @@ const Home = () => {
           </div>
         )}
 
-        <Button colorScheme="red" size="lg">
-          View All Products
-        </Button>
+        <Link to={"/ShopAll"}>
+          <Button colorScheme="red" size="lg" className="z-50">
+            View All Products
+          </Button>
+        </Link>
       </div>
 
       <div className="md:p-0 p-2">

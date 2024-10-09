@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Error404 from "./pages/Error404";
 import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails";
+import Shop from "./pages/Shop";
 function App() {
   return (
     <div className="App overflow-hidden ">
@@ -30,6 +31,7 @@ function App() {
         <Route path="/AboutUs" element={<About />} />
         <Route path="/ContactUs" element={<Contact />} />
         <Route path="/productDetails" element={<ProductDetails />} />
+        <Route path="/ShopAll" element={<Shop />} />{" "}
       </Routes>
       <Footer />
     </div>
