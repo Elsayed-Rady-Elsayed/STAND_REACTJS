@@ -3,10 +3,11 @@ import coat from "../assets/coat.png";
 import Card from "../components/Card";
 import { Select, Stack } from "@chakra-ui/react";
 const Shop = () => {
+  window.scrollTo(0, 0);
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
       <p className="md:ps-2 font-bold text-2xl">Shop</p>
-      <div className="flex my-5 md:ps-2 justify-between md:flex-row flex-col">
+      <div className="flex my-5 md:ps-2 justify-between md:flex-row flex-col gap-3">
         <div className="flex items-center gap-3">
           <p>Filter:</p>{" "}
           <Select placeholder="Sort By">
