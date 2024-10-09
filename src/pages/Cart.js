@@ -1,6 +1,7 @@
 import React from "react";
 import pcMonitor from "../assets/monitior.png";
 import { Button, Input } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 const Cart = () => {
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
@@ -78,7 +79,10 @@ const Cart = () => {
             </tr>
             <tr key="">
               <td colSpan="2" className="text-center py-3">
-                <Button colorScheme="red">process to checkout</Button>
+                <Link to={"/Billing"}>
+                  {" "}
+                  <Button colorScheme="red">process to checkout</Button>
+                </Link>
               </td>
             </tr>
           </table>

@@ -31,9 +31,9 @@ const Billing = () => {
   };
 
   return (
-    <div className="text-start w-[90%] m-auto mt-10">
+    <div className="text-start md:w-[90%] w-full p-2 md:p-0 m-auto mt-10">
       <h3 className="text-3xl font-bold">billing detail</h3>
-      <div className="flex  justify-between">
+      <div className="flex justify-between md:flex-row flex-col">
         <div className="text-start">
           <form className=" mt-10 flex flex-col gap-4" action="">
             <div>
