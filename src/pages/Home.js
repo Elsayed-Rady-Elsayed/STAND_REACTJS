@@ -15,7 +15,6 @@ import gaming from "../assets/Category-Gamepad.png";
 import CategoryCard from "../components/CategoryCard";
 import jbl from "../assets/Frame.png";
 import iphoneLogo from "../assets/iphonelogo.png";
-import elipse from "../assets/Ellipse.png";
 import f2 from "../assets/Frame2.png";
 import f3 from "../assets/Frame3.png";
 import f4 from "../assets/Frame5.png";
@@ -26,6 +25,7 @@ import ic3 from "../assets/Icon-secure.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Timer from "../components/Timer";
+import Advertisement from "../components/Advertisement";
 const Home = () => {
   useEffect(() => {
     console.log(window.innerWidth);
@@ -78,10 +78,7 @@ const Home = () => {
 
       <div className="categories relative mt-[5rem] md:p-0 p-2">
         <SectionHead title={"Categories"} />
-        <div className="flex justify-between items-center mt-2 mb-5">
-          <h3 className="text-2xl font-bold">Browse By Category</h3>
-        </div>
-        <div className="slider-container mb-[5rem]">
+        <div className="slider-container mb-[5rem] mt-3">
           <PorductCarusal>
             {categories.map((el, idx) => {
               return (
@@ -95,18 +92,8 @@ const Home = () => {
       <hr />
 
       <div className="bestSell relative mb-[5rem] mt-[5rem] md:p-0 p-2">
-        <SectionHead title={"This Month"} />
-        <div className="flex justify-between items-center mt-2 mb-5">
-          <h3 className="text-2xl font-bold text-start">
-            Best Selling Products
-          </h3>
-          <Link to={"/ShopAll"}>
-            <Button colorScheme="red" size="lg" className="z-50">
-              View All Products
-            </Button>
-          </Link>
-        </div>
-        <div className="slider-container mb-[5rem]">
+        <SectionHead title={"Best Selling Products"} />
+        <div className="slider-container mb-[5rem] mt-5">
           <PorductCarusal>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
               return (
@@ -125,62 +112,20 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full h-full bg-black flex items-start justify-between p-5 text-white md:flex-row flex-col-reverse">
-        <div className="mt-10 w-full md:w-[50%] md:ms-10 text-start">
-          <div className="">
-            <span className="text-lg text-[#00FF66]">Categories</span>
-          </div>
-          <div className="text-start">
-            <p className="font-bold text-5xl md:text-6xl text-start">
-              Enhance Your Music Experience
-            </p>
-            <div className="flex gap-5 my-5">
-              <span className="w-16 h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold text-sm">
-                <p>23</p>
-                <p>Hours</p>
-              </span>
-              <span className="w-16 h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold text-sm">
-                <p>23</p>
-                <p>Hours</p>
-              </span>
-              <span className="w-16 h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold text-sm">
-                <p>23</p>
-                <p>Hours</p>
-              </span>
-              <span className="w-16 h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold text-sm">
-                <p>23</p>
-                <p>Hours</p>
-              </span>
-            </div>
-            <a
-              href=""
-              className="inline-block mt-5 bg-[#00FF66] px-7 py-4 rounded-md"
-            >
-              <span>shop now </span>
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-5 relative">
-          <img
-            src={elipse}
-            className="absolute w-full h-[100%]  z-20 "
-            alt=""
-          />
-
-          <img src={jbl} className="relative z-20" alt="" />
-        </div>
-      </div>
+      <Advertisement
+        days={"12"}
+        hours={"24"}
+        img={jbl}
+        minutes={"21"}
+        seconds={"16"}
+        subtitle={"Enhance Your Music Experience"}
+        title={"Categories"}
+      />
 
       <div className="mt-[5rem] mb-[5rem] md:p-0 p-2">
-        <SectionHead title={"Products"} />
-        <div className="flex justify-between items-center mt-2 mb-5">
-          <h3 className="text-2xl font-bold text-start">
-            Explore Our Products
-          </h3>
-        </div>
+        <SectionHead title={"Explore Our Products"} />
         {window.innerWidth > 980 ? (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
               return (
                 <Card
@@ -222,10 +167,7 @@ const Home = () => {
       </div>
 
       <div className="md:p-0 p-2">
-        <SectionHead title={"Featured"} />
-        <div className="flex justify-between items-center mt-2 mb-5">
-          <h3 className="text-2xl font-bold text-start">New Arrival</h3>
-        </div>
+        <SectionHead title={"New Arrival"} />
         <div className="flex gap-5 mt-10">
           <div className="relative">
             <img src={f2} alt="" />

@@ -6,8 +6,8 @@ const SideBar = () => {
   return (
     <div className="text-start p-5 flex flex-col justify-between border-e h-full">
       <select className="w-full focus:border-0 focus:outline-0 text-lg font-semibold">
-        <option value="" key="" disabled className="">
-          women's fashion
+        <option value="" key="" selected disabled className="">
+          Women's Fashion
         </option>
         <option value="" key="">
           jeans
@@ -20,8 +20,8 @@ const SideBar = () => {
         </option>
       </select>
       <select className="w-full focus:border-0 focus:outline-0 text-lg font-semibold">
-        <option value="" key="" disabled className="">
-          men's fashion
+        <option value="" key="" selected disabled className="">
+          Men's Fashion
         </option>
         <option value="" key="">
           jeans

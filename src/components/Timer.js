@@ -3,7 +3,6 @@ import React from "react";
 const Timer = () => {
   return (
     <div className="flex items-start md:items-center mt-2 mb-5 gap-5 flex-col md:flex-row">
-      <h3 className="text-2xl font-bold">Flash Sales</h3>
       <div className="timer flex items-center md:gap-2 gap-1">
         <div className="flex flex-col items-start">
           <span className="md:text-xs text-[9px] capitalize">Days</span>

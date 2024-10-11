@@ -16,7 +16,7 @@ const ProductCarousal = ({ children }) => {
     const { onClick } = props;
     return (
       <span
-        className="bg-[#F5F5F5] flex items-center justify-center w-10 h-10 rounded-full absolute z-40 end-12 -top-16 cursor-pointer"
+        className="bg-[#F5F5F5] hidden md:flex items-center justify-center md:w-10 md:h-10 rounded-full absolute z-40 end-12 -top-16 cursor-pointer"
         onClick={onClick}
       >
         <i className="fa-solid fa-arrow-left" style={{ color: "#000000" }}></i>
@@ -28,7 +28,7 @@ const ProductCarousal = ({ children }) => {
     const { onClick } = props;
     return (
       <span
-        className="bg-[#F5F5F5] flex items-center justify-center w-10 h-10 rounded-full absolute z-40 end-0 -top-16 cursor-pointer"
+        className="bg-[#F5F5F5] items-center justify-center w-10 h-10 rounded-full absolute z-40 end-0 -top-16 cursor-pointer hidden md:flex"
         onClick={onClick}
       >
         <i className="fa-solid fa-arrow-right" style={{ color: "#000000" }}></i>

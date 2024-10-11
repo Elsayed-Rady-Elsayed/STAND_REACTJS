@@ -63,7 +63,7 @@ const Card = ({
       {label && <Label text={label} bg={"[#00FF66]"} />}
 
       <div
-        className="flex flex-col justify-between gap-2 cursor-pointer"
+        className="flex flex-col justify-between gap-1 cursor-pointer"
         onClick={toggleCartVisibility}
       >
         <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center relative">

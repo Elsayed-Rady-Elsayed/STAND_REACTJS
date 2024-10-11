@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import elipse from "../assets/Ellipse.png";
 
 const Advertisement = ({
   title,
@@ -11,10 +12,10 @@ const Advertisement = ({
   seconds,
 }) => {
   const TimeBox = ({ value, label }) => (
-    <span className="w-16 h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold text-sm">
+    <div className="min-w-[40px] h-[40px] md:w-16 md:h-16 bg-white text-black rounded-full flex flex-col items-center justify-center font-semibold md:text-sm text-xs ">
       <p>{value}</p>
       <p>{label}</p>
-    </span>
+    </div>
   );
 
   return (
@@ -30,8 +31,8 @@ const Advertisement = ({
           <div className="flex gap-5 my-5">
             <TimeBox value={days} label="days" />
             <TimeBox value={hours} label="hours" />
-            <TimeBox value={minutes} label="minutes" />
-            <TimeBox value={seconds} label="seconds" />
+            <TimeBox value={minutes} label="min" />
+            <TimeBox value={seconds} label="sec" />
           </div>
           <Link
             to="/ShopAll"
