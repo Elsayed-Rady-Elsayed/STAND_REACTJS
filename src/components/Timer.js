@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Timer = () => {
+  // const [date, setDate] = useState(new Date());
+  // useEffect(() => {
+  //   setDate(new Date());
+  // }, [date]);
+
   return (
     <div className="flex items-start md:items-center mt-2 mb-5 gap-5 flex-col md:flex-row">
       <div className="timer flex items-center md:gap-2 gap-1">

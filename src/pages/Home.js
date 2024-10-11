@@ -182,7 +182,7 @@ const Home = () => {
 
       <div className="md:p-0 p-2">
         <SectionHead title={"New Arrival"} />
-        <div className="flex gap-5 mt-10">
+        <div className="flex gap-5 mt-10 md:flex-row flex-col">
           <div className="relative">
             <img src={f2} alt="" />
             <div className="absolute bottom-4 text-white text-start start-2 md:start-4 md:w-1/2">
@@ -195,7 +195,7 @@ const Home = () => {
               </a>
             </div>
           </div>
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between gap-3">
             <div className="relative">
               <img src={f3} alt="" />
               <div className="absolute bottom-4 text-white text-start start-2 md:start-4 md:w-1/2">
