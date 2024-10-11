@@ -1,14 +1,7 @@
 import React from "react";
 import about from "../assets/About.png";
-import CategoryCard from "../components/CategoryCard";
 import iconShop from "../assets/icon_shop.png";
-import computer from "../assets/Category-Computer.png";
-import watch from "../assets/Category-SmartWatch.png";
-import camera from "../assets/Category-Camera.png";
-import headphone from "../assets/Category-Headphone.png";
-import gaming from "../assets/Category-Gamepad.png";
 import PorductCarusal from "../components/PorductCarusal";
-import { Stack } from "@chakra-ui/react";
 import personImg from "../assets/personAbout.png";
 import ic1 from "../assets/icon-delivery.png";
 import ic2 from "../assets/Icon-Customer service.png";

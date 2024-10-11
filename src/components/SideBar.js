@@ -1,5 +1,4 @@
 import React from "react";
-import { Select } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const SideBar = () => {

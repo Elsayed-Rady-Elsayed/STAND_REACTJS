@@ -8,17 +8,17 @@ const Timer = () => {
           <span className="md:text-xs text-[9px] capitalize">Days</span>
           <span className="font-bold md:text-3xl text-lg">03</span>
         </div>
-        <span className="text-red-600 text-2xl">:</span>
+        <span className="text-black text-2xl">:</span>
         <div className="flex flex-col items-start">
           <span className="md:text-xs text-[9px] capitalize">hours</span>
           <span className="font-bold md:text-3xl text-lg">03</span>
         </div>
-        <span className="text-red-600 text-2xl">:</span>
+        <span className="text-black text-2xl">:</span>
         <div className="flex flex-col items-start">
           <span className="md:text-xs text-[9px] capitalize">minutes</span>
           <span className="font-bold md:text-3xl text-lg">03</span>
         </div>
-        <span className="text-red-600 text-2xl">:</span>
+        <span className="text-black text-2xl">:</span>
         <div className="flex flex-col items-start">
           <span className="md:text-xs text-[9px] capitalize">seconds</span>
           <span className="font-bold md:text-3xl text-lg">03</span>

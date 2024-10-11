@@ -10,7 +10,6 @@ const Header = () => {
 
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
-      // Handle the search logic here
       console.log("Searching...");
     }
   };
@@ -29,7 +28,6 @@ const Header = () => {
             isMenuOpen ? "block" : "hidden"
           } absolute top-full w-full left-0 md:static p-5 md:p-0 md:border-0 border-b bg-white z-50 border-gray-300 md:flex items-center flex-1 justify-between`}
         >
-          {/* Navigation Links */}
           <nav className="flex-1 flex justify-center mb-5 md:mb-0">
             <ul className="flex flex-col md:flex-row md:gap-10 gap-5 font-normal">
               <li>
@@ -55,7 +53,6 @@ const Header = () => {
             </ul>
           </nav>
 
-          {/* Search and Icons */}
           <div className="flex items-center gap-4">
             <InputGroup width={"100%"}>
               <InputLeftElement

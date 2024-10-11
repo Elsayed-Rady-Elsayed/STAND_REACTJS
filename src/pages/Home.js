@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import ControlledCarousel from "../components/CarusalSlider";
 import SideBar from "../components/SideBar";
 import SectionHead from "../components/SectionHead";
 import PorductCarusal from "../components/PorductCarusal";
-import { Button } from "@chakra-ui/react";
+import Button from "../components/Button";
 import coat from "../assets/coat.png";
 import Card from "../components/Card";
 import phone from "../assets/Category-CellPhone.png";
@@ -14,7 +14,6 @@ import headphone from "../assets/Category-Headphone.png";
 import gaming from "../assets/Category-Gamepad.png";
 import CategoryCard from "../components/CategoryCard";
 import jbl from "../assets/Frame.png";
-import iphoneLogo from "../assets/iphonelogo.png";
 import f2 from "../assets/Frame2.png";
 import f3 from "../assets/Frame3.png";
 import f4 from "../assets/Frame5.png";
@@ -26,6 +25,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Timer from "../components/Timer";
 import Advertisement from "../components/Advertisement";
+import Features from "../components/Features";
+import FeaturesSection from "../components/Features";
 const Home = () => {
   useEffect(() => {
     console.log(window.innerWidth);
@@ -38,9 +39,26 @@ const Home = () => {
     { image: headphone, title: "headphone" },
     { image: gaming, title: "gaming" },
   ];
+  const Features = useMemo(() => [
+    {
+      img: ic1,
+      title: "FREE AND FAST DELIVERY",
+      subTitle: "Free delivery for all orders over $140",
+    },
+    {
+      img: ic2,
+      title: "24/7 CUSTOMER SERVICE",
+      subTitle: "Friendly 24/7 customer support",
+    },
+    {
+      img: ic3,
+      title: "MONEY BACK GUARANTEE",
+      subTitle: "We reurn money within 30 days",
+    },
+  ]);
   return (
     <div className="md:w-[90%] w-full m-auto">
-      <div className="flex md:mb-[8rem] mb-[1rem]">
+      <div className="flex md:mb-[3rem] mb-[1rem]">
         <div className="hidden md:block w-[25%]">
           <SideBar />
         </div>
@@ -49,10 +67,10 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="Todays relative mb-[5rem] md:p-0 p-2">
+      <div className="Todays relative md:mb-[3rem] mb-[1rem] md:p-0 p-2">
         <SectionHead title={"Today's"} />
         <Timer />
-        <div className="slider-container mb-[5rem]">
+        <div className="slider-container">
           <PorductCarusal>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
               return (
@@ -69,14 +87,12 @@ const Home = () => {
             })}
           </PorductCarusal>
         </div>
-        <Button colorScheme="red" size="lg">
-          View All Products
-        </Button>
+        <Button title={"View All Products"} handleClick={() => {}} />
       </div>
 
       <hr />
 
-      <div className="categories relative mt-[5rem] md:p-0 p-2">
+      <div className="categories relative mt-[3rem] md:p-0 p-2">
         <SectionHead title={"Categories"} />
         <div className="slider-container mb-[5rem] mt-3">
           <PorductCarusal>
@@ -91,7 +107,7 @@ const Home = () => {
 
       <hr />
 
-      <div className="bestSell relative mb-[5rem] mt-[5rem] md:p-0 p-2">
+      <div className="bestSell relative md:my-[3rem] my-[1rem] md:p-0 p-2">
         <SectionHead title={"Best Selling Products"} />
         <div className="slider-container mb-[5rem] mt-5">
           <PorductCarusal>
@@ -122,7 +138,7 @@ const Home = () => {
         title={"Categories"}
       />
 
-      <div className="mt-[5rem] mb-[5rem] md:p-0 p-2">
+      <div className="md:my-[3rem] my-[1rem] md:p-0 p-2">
         <SectionHead title={"Explore Our Products"} />
         {window.innerWidth > 980 ? (
           <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
@@ -160,9 +176,7 @@ const Home = () => {
         )}
 
         <Link to={"/ShopAll"}>
-          <Button colorScheme="red" size="lg" className="z-50">
-            View All Products
-          </Button>
+          <Button title={"View All Products"} handleClick={() => {}} />
         </Link>
       </div>
 
@@ -231,33 +245,15 @@ const Home = () => {
       </div>
 
       <div className="md:p-0 p-2 flex justify-evenly my-[5rem] md:flex-row flex-col gap-5">
-        <div className="flex flex-col justify-center items-center gap-2">
-          <span className="bg-gray-200 w-20 h-20 rounded-full p-2">
-            <div className="bg-black w-full h-full rounded-full flex items-center justify-center delivery for all orders over $140">
-              <img src={ic1} className="" alt="" />
-            </div>
-          </span>
-          <p className="font-bold">FREE AND FAST DELIVERY</p>
-          <p>Free delivery for all orders over $140</p>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-2">
-          <span className="bg-gray-200 w-20 h-20 rounded-full p-2">
-            <div className="bg-black w-full h-full rounded-full flex items-center justify-center delivery for all orders over $140">
-              <img src={ic2} className="" alt="" />
-            </div>
-          </span>
-          <p className="font-bold">24/7 CUSTOMER SERVICE</p>
-          <p>Friendly 24/7 customer support</p>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-2">
-          <span className="bg-gray-200 w-20 h-20 rounded-full p-2">
-            <div className="bg-black w-full h-full rounded-full flex items-center justify-center delivery for all orders over $140">
-              <img src={ic3} className="" alt="" />
-            </div>
-          </span>
-          <p className="font-bold">MONEY BACK GUARANTEE</p>
-          <p>We reurn money within 30 days</p>
-        </div>
+        {Features.map((el, idx) => {
+          return (
+            <FeaturesSection
+              img={el.img}
+              subTitle={el.subTitle}
+              title={el.title}
+            />
+          );
+        })}
       </div>
     </div>
   );
