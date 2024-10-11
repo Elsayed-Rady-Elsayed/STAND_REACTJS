@@ -7,13 +7,13 @@ const Register = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
-    <div className="flex py-10 h-[70vh] md:h-fit w-full">
+    <div className="flex h-[100vh] md:h-fit w-full">
       <div className="flex-1 hidden md:block">
         <img src={loginImage} className="w-full" alt="" />
       </div>
       <div className="auth flex-1 flex flex-col items-center justify-center gap-5">
-        <div className="flex flex-col items-start gap-5 w-[90%] md:w-3/5 mt-20 md:mt-0">
-          <h3 className="text-3xl font-bold">Create an account</h3>
+        <div className="flex flex-col items-start gap-5 w-[90%] md:w-3/5 mt-0 md:mt-0">
+          <h3 className="md:text-3xl text-2xl font-bold">Create an account</h3>
           <p className="">Enter your details below</p>
           <Input className="w-full" placeholder="Name" />
           <Input placeholder="Email" type="email" />

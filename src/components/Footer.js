@@ -11,7 +11,7 @@ const Footer = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
-    <div className="bg-black py-16 mt-10">
+    <div className="bg-black py-16">
       <div className="mainFooter w-full px-5 md:px-0 md:w-[90%] m-auto grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-5 text-white">
         <div className="text-start flex flex-col gap-3">
           <h3 className="font-bold text-lg">Exclusive</h3>
