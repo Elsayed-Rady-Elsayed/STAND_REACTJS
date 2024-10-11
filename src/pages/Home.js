@@ -24,11 +24,20 @@ import ic1 from "../assets/icon-delivery.png";
 import ic2 from "../assets/Icon-Customer service.png";
 import ic3 from "../assets/Icon-secure.png";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import Timer from "../components/Timer";
 const Home = () => {
   useEffect(() => {
     console.log(window.innerWidth);
   }, [window.innerWidth]);
-
+  const categories = [
+    { image: phone, title: "phones" },
+    { image: computer, title: "Computers" },
+    { image: watch, title: "smartWatch" },
+    { image: camera, title: "camera" },
+    { image: headphone, title: "headphone" },
+    { image: gaming, title: "gaming" },
+  ];
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[8rem] mb-[1rem]">
@@ -42,35 +51,13 @@ const Home = () => {
 
       <div className="Todays relative mb-[5rem] md:p-0 p-2">
         <SectionHead title={"Today's"} />
-        <div className="flex items-start md:items-center mt-2 mb-5 gap-5 flex-col md:flex-row">
-          <h3 className="text-2xl font-bold">Flash Sales</h3>
-          <div className="timer flex items-center md:gap-2 gap-1">
-            <div className="flex flex-col items-start">
-              <span className="md:text-xs text-[9px] capitalize">Days</span>
-              <span className="font-bold md:text-3xl text-lg">03</span>
-            </div>
-            <span className="text-red-600 text-2xl">:</span>
-            <div className="flex flex-col items-start">
-              <span className="md:text-xs text-[9px] capitalize">hours</span>
-              <span className="font-bold md:text-3xl text-lg">03</span>
-            </div>
-            <span className="text-red-600 text-2xl">:</span>
-            <div className="flex flex-col items-start">
-              <span className="md:text-xs text-[9px] capitalize">minutes</span>
-              <span className="font-bold md:text-3xl text-lg">03</span>
-            </div>
-            <span className="text-red-600 text-2xl">:</span>
-            <div className="flex flex-col items-start">
-              <span className="md:text-xs text-[9px] capitalize">seconds</span>
-              <span className="font-bold md:text-3xl text-lg">03</span>
-            </div>
-          </div>
-        </div>
+        <Timer />
         <div className="slider-container mb-[5rem]">
           <PorductCarusal>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
               return (
                 <Card
+                  key={idx}
                   image={coat}
                   title="the north coat"
                   price={`$${260}`}
@@ -96,12 +83,11 @@ const Home = () => {
         </div>
         <div className="slider-container mb-[5rem]">
           <PorductCarusal>
-            <CategoryCard image={phone} title={"phones"} />
-            <CategoryCard image={computer} title={"Computers"} />
-            <CategoryCard image={watch} title={"smartWatch"} />
-            <CategoryCard image={camera} title={"camera"} />
-            <CategoryCard image={headphone} title={"headphone"} />
-            <CategoryCard image={gaming} title={"gaming"} />
+            {categories.map((el, idx) => {
+              return (
+                <CategoryCard key={idx} image={el.image} title={el.title} />
+              );
+            })}
           </PorductCarusal>
         </div>
       </div>
@@ -125,6 +111,7 @@ const Home = () => {
             {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
               return (
                 <Card
+                  key={idx}
                   image={coat}
                   title="the north coat"
                   price={`$${260}`}

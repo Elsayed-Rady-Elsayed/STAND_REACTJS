@@ -9,7 +9,7 @@ const ProductCarousal = ({ children }) => {
     variableWidth: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    infinite: false, // Disable infinite scroll/cloning
+    infinite: false,
   };
 
   function SamplePrevArrow(props) {
@@ -39,7 +39,6 @@ const ProductCarousal = ({ children }) => {
   return (
     <div>
       <Slider {...settings}>
-        {/* Map over the children and assign unique keys if necessary */}
         {React.Children.map(children, (child, index) => (
           <div key={index}>{child}</div>
         ))}
