@@ -71,7 +71,7 @@ const Header = () => {
                 onKeyPress={handleSearch}
               />
             </InputGroup>
-            <Link to="/favourites" aria-label="View favourites">
+            <Link to="/favourits" aria-label="View favourites">
               <i className="fa-regular fa-heart fa-lg"></i>
             </Link>
 
