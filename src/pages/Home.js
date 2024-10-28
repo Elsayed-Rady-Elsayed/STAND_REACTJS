@@ -28,9 +28,7 @@ import Advertisement from "../components/Advertisement";
 import Features from "../components/Features";
 import FeaturesSection from "../components/Features";
 const Home = () => {
-  useEffect(() => {
-    console.log(window.innerWidth);
-  }, [window.innerWidth]);
+  useEffect(() => {}, [window.innerWidth]);
   const categories = [
     { image: phone, title: "phones" },
     { image: computer, title: "Computers" },
@@ -182,9 +180,9 @@ const Home = () => {
 
       <div className="md:p-0 p-2">
         <SectionHead title={"New Arrival"} />
-        <div className="flex gap-5 mt-10 md:flex-row flex-col">
+        <div className="flex gap-5 mt-10 md:flex-row flex-col w-full lg:justify-center">
           <div className="relative">
-            <img src={f2} alt="" />
+            <img src={f2} alt="" className="" />
             <div className="absolute bottom-4 text-white text-start start-2 md:start-4 md:w-1/2">
               <h3 className="text-sm md:text-3xl">PlayStation 5</h3>
               <p className="text-xs md:text-sm md:my-2 my-1">

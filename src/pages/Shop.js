@@ -11,20 +11,20 @@ const Shop = () => {
         <div className="flex items-center gap-3">
           <p>Filter:</p>{" "}
           <Select placeholder="Sort By">
-            <option value="option1">price low to high</option>
-            <option value="option2">price high to low</option>
-            <option value="option3">alphapeticaly a to z</option>
-            <option value="option3">alphapeticaly z to a</option>
-            <option value="option3">reviews</option>
+            <option value="price low to high">price low to high</option>
+            <option value="price high to low">price high to low</option>
+            <option value="alphapeticaly a to z">alphapeticaly a to z</option>
+            <option value="alphapeticaly z to a">alphapeticaly z to a</option>
+            <option value="reviews">reviews</option>
           </Select>
         </div>
         <div>
           <Select placeholder="Category">
-            <option value="option1">phone</option>
-            <option value="option2">fashion</option>
-            <option value="option3">men</option>
-            <option value="option3">women</option>
-            <option value="option3">computer</option>
+            <option value="phone">phone</option>
+            <option value="fashion">fashion</option>
+            <option value="men">men</option>
+            <option value="women">women</option>
+            <option value="computer">computer</option>
           </Select>
         </div>
       </div>
