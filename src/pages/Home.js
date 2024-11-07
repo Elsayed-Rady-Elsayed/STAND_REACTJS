@@ -33,12 +33,10 @@ import { fetchCategories } from "../store/CategoriesSlice";
 const Home = () => {
   useEffect(() => {}, [window.innerWidth]);
   const categories = [
-    { image: phone, title: "phones" },
-    { image: computer, title: "Computers" },
-    { image: watch, title: "smartWatch" },
-    { image: camera, title: "camera" },
-    { image: headphone, title: "headphone" },
-    { image: gaming, title: "gaming" },
+    { image: phone },
+    { image: computer },
+    { image: watch },
+    { image: camera },
   ];
   const Features = useMemo(() => [
     {
@@ -64,7 +62,9 @@ const Home = () => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
   }, [dispatch]);
-  console.log(category);
+  category.forEach((el, idx) => {
+    categories[idx].title = el;
+  });
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">
@@ -115,7 +115,10 @@ const Home = () => {
           <PorductCarusal>
             {categories.map((el, idx) => {
               return (
-                <CategoryCard key={idx} image={el.image} title={el.title} />
+                el.image &&
+                el.title && (
+                  <CategoryCard key={idx} image={el.image} title={el.title} />
+                )
               );
             })}
           </PorductCarusal>
