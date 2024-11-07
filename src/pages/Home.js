@@ -29,6 +29,7 @@ import Features from "../components/Features";
 import FeaturesSection from "../components/Features";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
+import { fetchCategories } from "../store/CategoriesSlice";
 const Home = () => {
   useEffect(() => {}, [window.innerWidth]);
   const categories = [
@@ -57,12 +58,13 @@ const Home = () => {
     },
   ]);
   const product = useSelector((state) => state.product.products);
+  const category = useSelector((state) => state.category.categories);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
-    console.log(product);
+    dispatch(fetchCategories());
   }, [dispatch]);
-
+  console.log(category);
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">
@@ -81,8 +83,9 @@ const Home = () => {
           <PorductCarusal>
             {product.map((el, idx) => {
               let stars = [];
+              const rating = el.rating?.rate ?? 0;
               for (let index = 0; index < 5; index++) {
-                index < Math.round(Number(el.rating.rate))
+                index < Math.round(Number(rating))
                   ? stars.push(1)
                   : stars.push(0);
               }
@@ -95,7 +98,7 @@ const Home = () => {
                   price={`$${el.price}`}
                   oldPrice={`${el.price - el.price * 0.1}`}
                   stars={stars}
-                  reviews={el.rating.count}
+                  reviews={el.rating?.count ?? 0}
                 />
               );
             })}
