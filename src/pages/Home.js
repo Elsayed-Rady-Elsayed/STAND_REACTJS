@@ -65,6 +65,25 @@ const Home = () => {
   category.forEach((el, idx) => {
     categories[idx].title = el;
   });
+  const shownProducts = product.map((el, idx) => {
+    let stars = [];
+    const rating = el.rating?.rate ?? 0;
+    for (let index = 0; index < 5; index++) {
+      index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
+    }
+    return (
+      <Card
+        key={idx}
+        item={el}
+        image={el.image}
+        title={el.title}
+        price={`$${el.price}`}
+        oldPrice={`${el.price - el.price * 0.1}`}
+        stars={stars}
+        reviews={el.rating?.count ?? 0}
+      />
+    );
+  });
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">
@@ -80,29 +99,7 @@ const Home = () => {
         <SectionHead title={"Today's"} />
         <Timer />
         <div className="slider-container">
-          <PorductCarusal>
-            {product.map((el, idx) => {
-              let stars = [];
-              const rating = el.rating?.rate ?? 0;
-              for (let index = 0; index < 5; index++) {
-                index < Math.round(Number(rating))
-                  ? stars.push(1)
-                  : stars.push(0);
-              }
-              return (
-                <Card
-                  key={idx}
-                  item={el}
-                  image={el.image}
-                  title={el.title}
-                  price={`$${el.price}`}
-                  oldPrice={`${el.price - el.price * 0.1}`}
-                  stars={stars}
-                  reviews={el.rating?.count ?? 0}
-                />
-              );
-            })}
-          </PorductCarusal>
+          <PorductCarusal>{shownProducts}</PorductCarusal>
         </div>
         <Button title={"View All Products"} handleClick={() => {}} />
       </div>
@@ -130,21 +127,7 @@ const Home = () => {
       <div className="bestSell relative md:my-[3rem] my-[1rem] md:p-0 p-2">
         <SectionHead title={"Best Selling Products"} />
         <div className="slider-container mb-[5rem] mt-5">
-          <PorductCarusal>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
-              return (
-                <Card
-                  key={idx}
-                  image={coat}
-                  title="the north coat"
-                  price={`$${260}`}
-                  oldPrice={`$${350}`}
-                  stars={[1, 2, 3]}
-                  reviews={22}
-                />
-              );
-            })}
-          </PorductCarusal>
+          <PorductCarusal>{shownProducts}</PorductCarusal>
         </div>
       </div>
 
@@ -162,36 +145,33 @@ const Home = () => {
         <SectionHead title={"Explore Our Products"} />
         {window.innerWidth > 980 ? (
           <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
+            {product.map((el, idx) => {
+              let stars = [];
+              const rating = el.rating?.rate ?? 0;
+              for (let index = 0; index < 5; index++) {
+                index < Math.round(Number(rating))
+                  ? stars.push(1)
+                  : stars.push(0);
+              }
               return (
-                <Card
-                  label={idx % 2 == 0 && "new"}
-                  image={coat}
-                  title="the north coat"
-                  price={`$${260}`}
-                  oldPrice={`$${350}`}
-                  stars={[1, 2, 3]}
-                  reviews={22}
-                />
+                idx < 8 && (
+                  <Card
+                    key={idx}
+                    item={el}
+                    image={el.image}
+                    title={el.title}
+                    price={`$${el.price}`}
+                    oldPrice={`${el.price - el.price * 0.1}`}
+                    stars={stars}
+                    reviews={el.rating?.count ?? 0}
+                  />
+                )
               );
             })}
           </div>
         ) : (
           <div className="slider-container mb-[5rem]">
-            <PorductCarusal>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
-                return (
-                  <Card
-                    image={coat}
-                    title="the north coat"
-                    price={`$${260}`}
-                    oldPrice={`$${350}`}
-                    stars={[1, 2, 3]}
-                    reviews={22}
-                  />
-                );
-              })}
-            </PorductCarusal>
+            <PorductCarusal>{shownProducts}</PorductCarusal>
           </div>
         )}
 
