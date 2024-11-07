@@ -79,16 +79,23 @@ const Home = () => {
         <Timer />
         <div className="slider-container">
           <PorductCarusal>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((el, idx) => {
+            {product.map((el, idx) => {
+              let stars = [];
+              for (let index = 0; index < 5; index++) {
+                index < Math.round(Number(el.rating.rate))
+                  ? stars.push(1)
+                  : stars.push(0);
+              }
               return (
                 <Card
                   key={idx}
-                  image={coat}
-                  title="the north coat"
-                  price={`$${260}`}
-                  oldPrice={`$${350}`}
-                  stars={[1, 2, 3]}
-                  reviews={22}
+                  item={el}
+                  image={el.image}
+                  title={el.title}
+                  price={`$${el.price}`}
+                  oldPrice={`${el.price - el.price * 0.1}`}
+                  stars={stars}
+                  reviews={el.rating.count}
                 />
               );
             })}

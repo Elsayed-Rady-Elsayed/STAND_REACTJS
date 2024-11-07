@@ -40,7 +40,7 @@ const Card = ({
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      className="relative min-w-[230px] h-[370px] px-1"
+      className="relative w-[250px] min-h-[370px] px-1"
       onClick={toggleCartVisibility}
     >
       <div className="absolute end-3 top-5 flex flex-col gap-4 z-50">
@@ -68,7 +68,12 @@ const Card = ({
 
       <div className="flex flex-col justify-between gap-1 cursor-pointer">
         <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center relative">
-          <img src={image} alt={title} className="object-contain" />
+          <img
+            src={image}
+            alt={title}
+            className="object-contain w-52 h-52"
+            loading="lazy"
+          />
           <motion.div
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
@@ -82,26 +87,35 @@ const Card = ({
           </motion.div>
         </div>
 
-        <p className="font-bold capitalize">{title}</p>
+        <p className="font-bold capitalize line-clamp-2">{title}</p>
 
         <div>
           <span className="text-red-600 font-bold mr-2">{price}</span>
           {oldPrice && (
             <span className="line-through text-gray-500 font-semibold">
-              {oldPrice}
+              ${Math.round(Number(oldPrice))}
             </span>
           )}
         </div>
 
         <div>
-          {stars.map((_, index) => (
-            <i
-              key={index}
-              className="fa-solid fa-star"
-              style={{ color: "#FFD43B" }}
-              aria-hidden="true"
-            />
-          ))}
+          {stars.map((_, index) =>
+            _ ? (
+              <i
+                key={index}
+                className="fa-solid fa-star"
+                style={{ color: "#FFD43B" }}
+                aria-hidden="true"
+              />
+            ) : (
+              <i
+                key={index}
+                className="fa-solid fa-star"
+                style={{ color: "gray" }}
+                aria-hidden="true"
+              />
+            )
+          )}
           <span className="ml-2 text-gray-500 font-semibold">({reviews})</span>
         </div>
       </div>
