@@ -10,12 +10,15 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import store from "./store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>

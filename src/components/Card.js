@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import RoundedIconBtn from "./RoundedIconBtn";
 import Label from "./Label";
+import { useDispatch, useSelector } from "react-redux";
 
 const Card = ({
   isRemove,
+  item,
   label,
   image,
   title,
@@ -15,8 +17,9 @@ const Card = ({
   reviews,
 }) => {
   const cardRef = useRef();
+  const cartStore = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
-  // Use useCallback to memoize the handler
   const toggleCartVisibility = useCallback(() => {
     cardRef.current.classList.toggle("hidden");
   }, []);
@@ -38,6 +41,7 @@ const Card = ({
       initial="hidden"
       whileInView="visible"
       className="relative min-w-[230px] h-[370px] px-1"
+      onClick={toggleCartVisibility}
     >
       <div className="absolute end-3 top-5 flex flex-col gap-4 z-50">
         <RoundedIconBtn
@@ -62,10 +66,7 @@ const Card = ({
 
       {label && <Label text={label} bg={"[#00FF66]"} />}
 
-      <div
-        className="flex flex-col justify-between gap-1 cursor-pointer"
-        onClick={toggleCartVisibility}
-      >
+      <div className="flex flex-col justify-between gap-1 cursor-pointer">
         <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center relative">
           <img src={image} alt={title} className="object-contain" />
           <motion.div
@@ -73,6 +74,9 @@ const Card = ({
             whileHover={{ opacity: 1 }}
             className="bg-black text-white w-full p-2 absolute bottom-0 cursor-pointer hidden"
             ref={cardRef}
+            onClick={() => {
+              dispatch({ item: item });
+            }}
           >
             Add to cart
           </motion.div>
