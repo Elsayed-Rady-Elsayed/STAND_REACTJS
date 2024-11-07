@@ -27,6 +27,8 @@ import Timer from "../components/Timer";
 import Advertisement from "../components/Advertisement";
 import Features from "../components/Features";
 import FeaturesSection from "../components/Features";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/productSlice";
 const Home = () => {
   useEffect(() => {}, [window.innerWidth]);
   const categories = [
@@ -54,6 +56,13 @@ const Home = () => {
       subTitle: "We reurn money within 30 days",
     },
   ]);
+  const product = useSelector((state) => state.product.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+    console.log(product);
+  }, [dispatch]);
+
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">
