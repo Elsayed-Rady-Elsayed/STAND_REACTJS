@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import pcMonitor from "../assets/monitior.png";
 import { Button, Input } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, changeQuantityCart } from "../store/CartSlice";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ const Cart = () => {
   const cartStore = useSelector((state) => state.cart.cart);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
+  const nav = useNavigate();
   console.log(cartStore);
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
@@ -95,10 +96,7 @@ const Cart = () => {
         </table>
       </div>
 
-      <div className="mt-10 flex justify-between gap-2">
-        <Button variant="outline">Return To Shop</Button>
-        <Button variant="outline">Update Cart</Button>
-      </div>
+      <div className="mt-10 flex justify-between gap-2"></div>
       <div className="mt-10 flex justify-between gap-10 md:flex-row flex-col">
         <div className="flex gap-2 md:w-[50%] w-full">
           <Input placeholder="Coupon Code" />
@@ -127,10 +125,14 @@ const Cart = () => {
             </tr>
             <tr key="">
               <td colSpan="2" className="text-center py-3">
-                <Link to={"/Billing"}>
-                  {" "}
-                  <Button colorScheme="red">process to checkout</Button>
-                </Link>
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    nav("/Billing", { state: { product: cartStore } });
+                  }}
+                >
+                  process to checkout
+                </Button>
               </td>
             </tr>
           </table>

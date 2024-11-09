@@ -12,6 +12,7 @@ import {
 import { Target } from "lucide-react";
 import React, { useState } from "react";
 import monitor from "../assets/monitior.png";
+import { useLocation, useParams } from "react-router-dom";
 const Billing = () => {
   const [userBillState, setUserBillState] = useState({
     FirstName: "",
@@ -29,9 +30,12 @@ const Billing = () => {
       [name]: value,
     }));
   };
+  const location = useLocation();
+  const product = location.state.product;
+  console.log(product);
 
   return (
-    <div className="text-start md:w-[90%] w-full p-2 md:p-0 m-auto mt-10">
+    <div className="text-start md:w-[90%] w-full p-2 md:p-5 m-auto mt-10">
       <h3 className="text-3xl font-bold">billing detail</h3>
       <div className="flex justify-between md:flex-row flex-col">
         <div className="text-start">
@@ -127,20 +131,32 @@ const Billing = () => {
             spacing={4}
             align="stretch"
           >
-            <Box bg="" className="flex justify-between gap-10 items-center">
-              <div className="flex gap-3 items-center">
-                <img src={monitor} alt="" />
-                <p>LCD Monitior</p>
-              </div>
-              <p>$560</p>
-            </Box>
-            <Box bg="" className="flex justify-between gap-10 items-center">
-              <div className="flex gap-3 items-center">
-                <img src={monitor} alt="" />
-                <p>LCD Monitior</p>
-              </div>
-              <p>$560</p>
-            </Box>
+            {Array.isArray(product) ? (
+              product.map((el, idx) => {
+                return (
+                  <Box
+                    key={idx}
+                    bg=""
+                    className="flex justify-between gap-10 items-center"
+                  >
+                    <div className="flex gap-3 items-center h-10">
+                      <img src={el.image} alt="" className="h-full" />
+                      <p>{el.title}</p>
+                    </div>
+                    <p>${el.price}</p>
+                  </Box>
+                );
+              })
+            ) : (
+              <Box bg="" className="flex justify-between gap-10 items-center">
+                <div className="flex gap-3 items-center h-10">
+                  <img src={product.image} alt="" className="h-full" />
+                  <p>{product.title}</p>
+                </div>
+                <p>${product.price}</p>
+              </Box>
+            )}
+
             <Box bg="" className="flex justify-between gap-10 items-center">
               <p>SubTotal</p>
               <p>$1750</p>

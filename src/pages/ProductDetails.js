@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import SectionHead from "../components/SectionHead";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../store/productSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToWishList } from "../store/CartSlice";
 import { toast } from "react-toastify";
 const ProductDetails = () => {
@@ -16,6 +16,7 @@ const ProductDetails = () => {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
+  const nav = useNavigate();
   useEffect(() => {
     dispatch(fetchProductById(params.id));
   }, []);
@@ -129,7 +130,16 @@ const ProductDetails = () => {
                 +
               </span>
             </div>
-            <Button className="" colorScheme="red" width={"full"}>
+            <Button
+              className=""
+              colorScheme="red"
+              width={"full"}
+              onClick={() => {
+                nav(`/Billing`, {
+                  state: { product: { ...singleProducts, quantity: count } },
+                });
+              }}
+            >
               Buy Now
             </Button>
             <span
