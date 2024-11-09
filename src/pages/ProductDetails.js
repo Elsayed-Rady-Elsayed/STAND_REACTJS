@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import coat from "../assets/coat.png";
 import { Button, Stack } from "@chakra-ui/react";
 import Card from "../components/Card";
@@ -6,11 +6,14 @@ import SectionHead from "../components/SectionHead";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../store/productSlice";
 import { useParams } from "react-router-dom";
+import { addToWishList } from "../store/CartSlice";
+import { toast } from "react-toastify";
 const ProductDetails = () => {
   window.scrollTo(0, 0);
   const { singleProducts, loading, error } = useSelector(
     (state) => state.product
   );
+  const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
   useEffect(() => {
@@ -108,14 +111,36 @@ const ProductDetails = () => {
           </div>
           <div className="flex justify-between gap-5 md:flex-row flex-col">
             <div className="flex items-center border w-fit">
-              <span className="px-5 border-e text-xl cursor-pointer">-</span>
-              <span className="px-5 border-e text-xl">2</span>
-              <span className="px-5 border-e text-xl cursor-pointer">+</span>
+              <span
+                className="px-5 border-e text-xl cursor-pointer"
+                onClick={() => {
+                  count > 0 && setCount((prev) => prev - 1);
+                }}
+              >
+                -
+              </span>
+              <span className="px-5 border-e text-xl">{count}</span>
+              <span
+                className="px-5 border-e text-xl cursor-pointer"
+                onClick={() => {
+                  setCount((prev) => prev + 1);
+                }}
+              >
+                +
+              </span>
             </div>
             <Button className="" colorScheme="red" width={"full"}>
               Buy Now
             </Button>
-            <span className="border flex items-center justify-center p-3 rounded-md w-fit cursor-pointer">
+            <span
+              className="border flex items-center justify-center p-3 rounded-md w-fit cursor-pointer"
+              onClick={() => {
+                dispatch(
+                  addToWishList({ item: singleProducts, quantity: count })
+                );
+                toast.success("item added to wishList");
+              }}
+            >
               <i className="fa-regular fa-heart fa-lg"></i>
             </span>
           </div>

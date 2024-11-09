@@ -41,7 +41,7 @@ const ControlledCarousel = () => {
     >
       {items.map(({ img, imgLogo, title1, title2 }, idx) => (
         <div key={idx} className="carousel-slide h-fit md:h-96">
-          <div className="carousel-content w-full h-full bg-black flex items-start justify-between p-5 text-white md:flex-row flex-col-reverse relative">
+          <div className="carousel-content w-full h-full bg-black flex items-start justify-between p-5 text-white md:flex-row flex-col-reverse relative ">
             <div className="carousel-text-container md:mt-10 w-full md:w-[50%] absolute start-4 top-1/2 -translate-y-1/2 md:top-0 md:-translate-y-0 md:static">
               <div className="flex items-center gap-4 md:w-[50%] w-full">
                 <img
