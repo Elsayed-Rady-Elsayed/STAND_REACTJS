@@ -82,6 +82,8 @@ const Home = () => {
       />
     );
   });
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 90000);
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">
@@ -95,7 +97,8 @@ const Home = () => {
 
       <div className="Todays relative md:mb-[3rem] mb-[1rem] md:p-0 p-2">
         <SectionHead title={"Today's"} />
-        <Timer />
+        {/* <Timer /> */}
+        <Timer expiryTimestamp={time} />
         <div className="slider-container">
           <PorductCarusal>{shownProducts}</PorductCarusal>
         </div>
