@@ -5,6 +5,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
+    "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-free": "^6.6.0",
@@ -19,6 +20,7 @@
     "@testing-library/user-event": "^13.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "emailjs": "^4.0.3",
     "express": "^4.21.0",
     "framer-motion": "^11.9.0",
     "lucide-react": "^0.446.0",
@@ -31,6 +33,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.2",
+    "react-toast": "^1.0.3",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "slick-carousel": "^1.8.1",

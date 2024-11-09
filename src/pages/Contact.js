@@ -2,6 +2,9 @@ import React from "react";
 import phone from "../assets/icons-phonecontact.png";
 import mail from "../assets/icons-mailcontact.png";
 import { Button, Input, Textarea } from "@chakra-ui/react";
+// import { ToastContainer, toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
+
 const Contact = () => {
   return (
     <div className="md:w-[90%] md:p-0 p-2 w-full m-auto my-[5rem] flex gap-5 md:flex-row flex-col">
@@ -26,17 +29,58 @@ const Contact = () => {
           <p className="text-sm">Emails: customer@exclusive.com</p>
         </div>
       </div>
-      <div className="shadow-lg p-5 w-full rounded-md text-end">
+      <form
+        onSubmit={async (event) => {
+          event.preventDefault();
+
+          const formdata = new FormData(event.target);
+          const data = Object.fromEntries(formdata);
+          if (data) {
+            await emailjs
+              .send(
+                "service_h1rucpg",
+                "template_u7odrdv",
+                {
+                  to_email: "Store@gmail.com",
+                  to_name: data.Name,
+                  from_name: "Our store",
+                  message: data.message,
+                  reply_to: data.email,
+                },
+                "QnZR0Tpt9Rw3rl_sw"
+              )
+              .then((res) => {
+                if (res.status === 200) {
+                  console.log(res);
+
+                  setTimeout(() => {
+                    window.location.href = "/";
+                  }, 2000);
+                }
+              });
+          }
+        }}
+        className="shadow-lg p-5 w-full rounded-md text-end"
+      >
         <div className="flex gap-2 md:flex-row flex-col mb-2">
-          <Input placeholder="Your Name*" bg={"#F5F5F5"} />
-          <Input placeholder="Your Email*" bg={"#F5F5F5"} />
-          <Input placeholder="Your Phone*" bg={"#F5F5F5"} />
+          <Input placeholder="Your Name*" name="Name" bg={"#F5F5F5"} />
+          <Input placeholder="Your Email*" name="email" bg={"#F5F5F5"} />
+          <Input placeholder="Your Phone*" name="phone" bg={"#F5F5F5"} />
         </div>
-        <Textarea bg={"#F5F5F5"} placeholder="write your message" rows={"8"} />
-        <Button className="mt-2" colorScheme="red">
+        <Textarea
+          bg={"#F5F5F5"}
+          placeholder="write your message"
+          name="message"
+          rows={"8"}
+        />
+        <button
+          type="submit"
+          className="mt-2 bg-red-500 p-2 text-white rounded-md"
+          colorScheme="red"
+        >
           Send Massage
-        </Button>
-      </div>
+        </button>
+      </form>
     </div>
   );
 };
