@@ -7,13 +7,24 @@ export const CartStore = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.paylod.item);
+      state.cart.push(action.payload.item);
     },
     removeFromCart: (state, action) => {
-      let indexOfProduct = state.cart.indexOf(action.payload.item);
-      state.cart.pop(indexOfProduct);
+      let indexOfProduct = state.cart.findIndex(
+        (product) => product.id === action.payload.item.id
+      );
+      if (indexOfProduct !== -1) {
+        state.cart.splice(indexOfProduct, 1);
+      }
+    },
+    changeQuantityCart: (state, action) => {
+      let indexOfProduct = state.cart.findIndex(
+        (p) => p.id === action.payload.item.id
+      );
+      state.cart[indexOfProduct].quantity = action.payload.quantity;
     },
   },
 });
-export const { addToCart, removeFromCart } = CartStore.actions;
+export const { addToCart, removeFromCart, changeQuantityCart } =
+  CartStore.actions;
 export default CartStore.reducer;

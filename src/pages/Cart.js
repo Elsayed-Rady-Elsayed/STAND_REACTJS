@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import pcMonitor from "../assets/monitior.png";
 import { Button, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, changeQuantityCart } from "../store/CartSlice";
 const Cart = () => {
+  const cartStore = useSelector((state) => state.cart.cart);
+  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+  console.log(cartStore);
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
       <div className="text-start">
@@ -16,34 +22,74 @@ const Cart = () => {
             <td>quantitiy</td>
             <td>subtotal</td>
           </tr>
-          <tr key="" className="shadow-sm h-16 md:text-md text-xs">
-            <td className="flex items-center mt-4 relative ps-2 ">
-              <span className="bg-red-500 absolute h-4 w-4 cursor-pointer rounded-full flex items-center justify-center text-white pb-1 -top-1 start-0">
-                x
-              </span>
-              <img src={pcMonitor} alt="" />
-              <p className="md:text-sm md:ms-4 ms-1 md:text-md text-xs">
-                Lcd Monitior
-              </p>
-            </td>
-            <td className="font-bold">$650</td>
-            <td className="">
-              <div className=" flex justify-center">
-                <div className="flex w-fit border md:p-2 p-1 rounded items-center justify-center gap-3 ">
-                  <span className="md:text-xl text-xs">01</span>
-                  <span className="text-xs ">
-                    <div>
-                      <i className="fa-solid fa-chevron-up"></i>
-                    </div>
-                    <div>
-                      <i className="fa-solid fa-chevron-down"></i>
-                    </div>
+          {cartStore.map((el) => {
+            if (el.quantity === 0) {
+              dispatch(removeFromCart({ item: el }));
+            }
+            return (
+              <tr key="" className="shadow-sm h-16 md:text-md text-xs">
+                <td className="flex items-center mt-4 relative ps-2 ">
+                  <span
+                    onClick={() => {
+                      dispatch(
+                        removeFromCart({
+                          item: el,
+                        })
+                      );
+                    }}
+                    className="bg-red-500 absolute h-4 w-4 cursor-pointer rounded-full flex items-center justify-center text-white pb-1 -top-1 start-0"
+                  >
+                    x
                   </span>
-                </div>
-              </div>
-            </td>
-            <td className="font-bold">$650</td>
-          </tr>
+                  <img src={el.image} className="w-8 h-10" alt="" />
+                  <p className="md:text-sm md:ms-4 ms-1 md:text-md text-xs">
+                    {el.title}
+                  </p>
+                </td>
+                <td className="font-bold">${el.price * el.quantity}</td>
+                <td className="">
+                  <div className=" flex justify-center">
+                    <div className="flex w-fit border md:p-2 p-1 rounded items-center justify-center gap-3 ">
+                      <span className="md:text-xl text-xs">{el.quantity}</span>
+                      <span className="text-xs ">
+                        <div
+                          onClick={() => {
+                            setCount((prev) => prev + 1);
+                            dispatch(
+                              changeQuantityCart({
+                                item: el,
+                                quantity: el.quantity + 1,
+                              })
+                            );
+                          }}
+                        >
+                          <i className="fa-solid fa-chevron-up"></i>
+                        </div>
+                        <div
+                          onClick={() => {
+                            if (el.quantity > 0) {
+                              setCount((prev) => prev - 1);
+                              dispatch(
+                                changeQuantityCart({
+                                  item: el,
+                                  quantity: el.quantity - 1,
+                                })
+                              );
+                            }
+                          }}
+                        >
+                          <i className="fa-solid fa-chevron-down"></i>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className="font-bold">
+                  ${Math.round(el.price * el.quantity + 22)}
+                </td>
+              </tr>
+            );
+          })}
         </table>
       </div>
 

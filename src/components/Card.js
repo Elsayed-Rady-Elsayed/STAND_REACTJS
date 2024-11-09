@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RoundedIconBtn from "./RoundedIconBtn";
 import Label from "./Label";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../store/CartSlice";
 
 const Card = ({
   isRemove,
@@ -18,9 +19,7 @@ const Card = ({
   id,
 }) => {
   const cardRef = useRef();
-  const cartStore = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
-
   const toggleCartVisibility = useCallback(() => {
     cardRef.current.classList.toggle("hidden");
   }, []);
@@ -81,7 +80,7 @@ const Card = ({
             className="bg-black text-white w-full p-2 absolute bottom-0 cursor-pointer hidden"
             ref={cardRef}
             onClick={() => {
-              dispatch({ item: item });
+              dispatch(addToCart({ item: { ...item, quantity: 1 } }));
             }}
           >
             Add to cart
