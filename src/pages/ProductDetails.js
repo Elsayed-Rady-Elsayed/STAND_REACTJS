@@ -1,31 +1,69 @@
-import React from "react";
+import React, { useEffect } from "react";
 import coat from "../assets/coat.png";
 import { Button, Stack } from "@chakra-ui/react";
 import Card from "../components/Card";
 import SectionHead from "../components/SectionHead";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "../store/productSlice";
+import { useParams } from "react-router-dom";
 const ProductDetails = () => {
   window.scrollTo(0, 0);
-
+  const { singleProducts, loading, error } = useSelector(
+    (state) => state.product
+  );
+  const dispatch = useDispatch();
+  const params = useParams();
+  useEffect(() => {
+    dispatch(fetchProductById(params.id));
+  }, []);
+  console.log(singleProducts);
+  let stars = [];
+  const rating = singleProducts.rating?.rate ?? 0;
+  for (let index = 0; index < 5; index++) {
+    index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
+  }
   return (
     <div className="md:w-[90%] m-auto text-start my-10 md:p-0 p-4">
-      <p className="mb-10">Account / Gaming / Havic HV G92 Gamepad</p>
+      <p className="mb-10">
+        Account / {singleProducts.category} / {singleProducts.title}
+      </p>
       <div className="flex gap-10 md:flex-row flex-col md:mb-10 mb-5">
         <div className="flex gap-5 md:w-[50%] w-full h-fit ">
           <div className="flex flex-col gap-2 w-[20%]">
-            <img className="bg-[#f5f5f5] p-2" src={coat} alt="" />
-            <img className="bg-[#f5f5f5] p-2" src={coat} alt="" />
-            <img className="bg-[#f5f5f5] p-2" src={coat} alt="" />
-            <img className="bg-[#f5f5f5] p-2" src={coat} alt="" />
+            <img
+              className="bg-[#f5f5f5] p-2"
+              src={singleProducts.image}
+              alt=""
+            />
+            <img
+              className="bg-[#f5f5f5] p-2"
+              src={singleProducts.image}
+              alt=""
+            />
+            <img
+              className="bg-[#f5f5f5] p-2"
+              src={singleProducts.image}
+              alt=""
+            />
+            <img
+              className="bg-[#f5f5f5] p-2"
+              src={singleProducts.image}
+              alt=""
+            />
           </div>
           <div className="w-[80%]">
-            <img src={coat} className="h-full w-full bg-[#f5f5f5]" alt="" />
+            <img
+              src={singleProducts.image}
+              className="h-full w-full bg-[#f5f5f5]"
+              alt=""
+            />
           </div>
         </div>
         <div className="md:w-[50%] w-full flex flex-col gap-3">
-          <p className="font-bold text-2xl">Havic HV G-92 Gamepad</p>
+          <p className="font-bold text-2xl">{singleProducts.title}</p>
           <div className="flex gap-3 items-center">
             <div>
-              {[1, 2, 5, 6].map((el) => {
+              {stars.map((el) => {
                 return (
                   <i
                     className="fa-solid fa-star"
@@ -36,16 +74,14 @@ const ProductDetails = () => {
                 );
               })}
             </div>
-            <p className="text-sm text-slate-400">(20 reviews)</p>
+            <p className="text-sm text-slate-400">
+              ({singleProducts.rating.count} reviews)
+            </p>
             <div className="h-full w-0.5 bg-slate-200"></div>
             <span className="text-green-500 font-bold">In Stock</span>
           </div>
-          <p className="font-bold text-3xl">$192.00</p>
-          <p className="">
-            PlayStation 5 Controller Skin High quality vinyl with air channel
-            adhesive for easy bubble free install & mess free removal Pressure
-            sensitive.
-          </p>
+          <p className="font-bold text-3xl">${singleProducts.price}</p>
+          <p className="">{singleProducts.description}</p>
           <hr />
           <div className="flex items-center gap-2">
             <p className="font-semibold">Colours:</p>

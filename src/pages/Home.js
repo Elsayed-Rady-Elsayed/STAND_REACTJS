@@ -4,14 +4,11 @@ import SideBar from "../components/SideBar";
 import SectionHead from "../components/SectionHead";
 import PorductCarusal from "../components/PorductCarusal";
 import Button from "../components/Button";
-import coat from "../assets/coat.png";
 import Card from "../components/Card";
 import phone from "../assets/Category-CellPhone.png";
 import computer from "../assets/Category-Computer.png";
 import watch from "../assets/Category-SmartWatch.png";
 import camera from "../assets/Category-Camera.png";
-import headphone from "../assets/Category-Headphone.png";
-import gaming from "../assets/Category-Gamepad.png";
 import CategoryCard from "../components/CategoryCard";
 import jbl from "../assets/Frame.png";
 import f2 from "../assets/Frame2.png";
@@ -22,10 +19,8 @@ import ic1 from "../assets/icon-delivery.png";
 import ic2 from "../assets/Icon-Customer service.png";
 import ic3 from "../assets/Icon-secure.png";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import Timer from "../components/Timer";
 import Advertisement from "../components/Advertisement";
-import Features from "../components/Features";
 import FeaturesSection from "../components/Features";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
@@ -77,6 +72,7 @@ const Home = () => {
       <Card
         key={idx}
         item={el}
+        id={el.id}
         image={el.image}
         title={el.title}
         price={`$${el.price}`}
@@ -167,6 +163,7 @@ const Home = () => {
                   <Card
                     key={idx}
                     item={el}
+                    id={el.id}
                     image={el.image}
                     title={el.title}
                     price={`$${el.price}`}

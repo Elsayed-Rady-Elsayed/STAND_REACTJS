@@ -15,6 +15,7 @@ const Card = ({
   oldPrice,
   stars,
   reviews,
+  id,
 }) => {
   const cardRef = useRef();
   const cartStore = useSelector((state) => state.cart.cart);
@@ -34,6 +35,7 @@ const Card = ({
       },
     },
   };
+  console.log(item);
 
   return (
     <motion.div
@@ -52,7 +54,7 @@ const Card = ({
           aria-label="Add to wishlist"
           handleClick={() => {}}
         />
-        <Link to="/productDetails">
+        <Link to={`/productDetails/${id}`}>
           <RoundedIconBtn
             bg={"white"}
             icon={"eye"}

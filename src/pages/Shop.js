@@ -5,12 +5,15 @@ import { Select, Stack } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
 import { fetchCategories } from "../store/CategoriesSlice";
+import { useParams } from "react-router-dom";
 const Shop = () => {
   window.scrollTo(0, 0);
   const { products, loading, error } = useSelector((state) => state.product);
   const { categories } = useSelector((state) => state.category);
   const [viewListBasedOnCategory, setProductsListFromCate] = useState([]);
+  const params = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
@@ -44,7 +47,11 @@ const Shop = () => {
       return sortFunction ? [...prev].sort(sortFunction) : products;
     });
   };
-
+  useEffect(() => {
+    if (params.category) {
+      handleChangeListProducts(params.category);
+    }
+  }, []);
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
       <p className="md:ps-2 font-bold text-2xl">Shop</p>
@@ -91,6 +98,7 @@ const Shop = () => {
               <Card
                 key={idx}
                 item={el}
+                id={el.id}
                 image={el.image}
                 title={el.title}
                 price={`$${el.price}`}
