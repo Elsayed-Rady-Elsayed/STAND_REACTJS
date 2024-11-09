@@ -21,7 +21,7 @@ import f5 from "../assets/Frame4.png";
 import ic1 from "../assets/icon-delivery.png";
 import ic2 from "../assets/Icon-Customer service.png";
 import ic3 from "../assets/Icon-secure.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Timer from "../components/Timer";
 import Advertisement from "../components/Advertisement";
@@ -32,7 +32,7 @@ import { fetchProducts } from "../store/productSlice";
 import { fetchCategories } from "../store/CategoriesSlice";
 const Home = () => {
   const user = useSelector((state) => state.user);
-
+  const nav = useNavigate();
   useEffect(() => {}, [window.innerWidth]);
   const categories = [
     { image: phone },
@@ -103,7 +103,12 @@ const Home = () => {
         <div className="slider-container">
           <PorductCarusal>{shownProducts}</PorductCarusal>
         </div>
-        <Button title={"View All Products"} handleClick={() => {}} />
+        <Button
+          title={"View All Products"}
+          handleClick={() => {
+            nav("/ShopAll");
+          }}
+        />
       </div>
 
       <hr />

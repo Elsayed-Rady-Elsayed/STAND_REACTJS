@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import coat from "../assets/coat.png";
 import Card from "../components/Card";
 import { Select, Stack } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/productSlice";
 const Shop = () => {
   window.scrollTo(0, 0);
+  const product = useSelector((state) => state.product.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+  console.log(product);
+
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
       <p className="md:ps-2 font-bold text-2xl">Shop</p>
@@ -29,15 +38,20 @@ const Shop = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-5">
-        {[1, 2, 2, 2, 2, 2, 2, 2].map((el) => {
+        {product.map((el) => {
+          let stars = [];
+          const rating = el.rating?.rate ?? 0;
+          for (let index = 0; index < 5; index++) {
+            index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
+          }
           return (
             <Card
-              image={coat}
-              title="the north coat"
-              price={`$${260}`}
-              oldPrice={`$${350}`}
-              stars={[1, 2, 3]}
-              reviews={22}
+              image={el.image}
+              title={el.title}
+              price={`$${el.price}`}
+              oldPrice={`${el.price}`}
+              stars={stars}
+              reviews={el.rating.count}
             />
           );
         })}
