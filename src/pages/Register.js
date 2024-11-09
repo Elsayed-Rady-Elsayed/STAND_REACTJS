@@ -9,7 +9,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
   const [show, setShow] = React.useState(false);
@@ -38,23 +39,33 @@ const Register = () => {
       email: formData.get("email"),
       password: formData.get("password"),
     };
+
     if (
       SignUpInfo.name.length === 0 ||
       SignUpInfo.password.length === 0 ||
       SignUpInfo.email.length === 0
     ) {
-      toast.error("please enter all your information");
+      toast.error("Please enter all your information");
     } else {
       try {
-        const signUpResponse = await createUserWithEmailAndPassword(
+        const response = await createUserWithEmailAndPassword(
           auth,
           SignUpInfo.email,
           SignUpInfo.password
         );
-        toast.success("Account Create Successfully");
+        await setDoc(doc(db, "users", response.user.uid), {
+          name: SignUpInfo.name,
+          email: SignUpInfo.email,
+          id: response.user.uid,
+          cart: [],
+          wishList: [],
+          orders: [],
+        });
+
+        toast.success("Account Created Successfully");
         nav("/");
       } catch (e) {
-        toast.error("cant signUp check your data");
+        toast.error("Can't sign up, please check your data");
       }
     }
   };
