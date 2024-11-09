@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import RoundedIconBtn from "./RoundedIconBtn";
 import Label from "./Label";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/CartSlice";
+import {
+  addToCart,
+  addToWishList,
+  removeFromWishList,
+} from "../store/CartSlice";
 
 const Card = ({
   isRemove,
@@ -44,14 +48,29 @@ const Card = ({
       onClick={toggleCartVisibility}
     >
       <div className="absolute end-3 top-5 flex flex-col gap-4 z-50">
-        <RoundedIconBtn
-          bg={"white"}
-          icon={"heart"}
-          size={"lg"}
-          color={"#000000"}
-          aria-label="Add to wishlist"
-          handleClick={() => {}}
-        />
+        {isRemove ? (
+          <RoundedIconBtn
+            bg={"white"}
+            icon={"trash-can"}
+            size={"lg"}
+            color={"#000000"}
+            aria-label="remove wishlist"
+            handleClick={() => {
+              dispatch(removeFromWishList({ item: item }));
+            }}
+          />
+        ) : (
+          <RoundedIconBtn
+            bg={"white"}
+            icon={"heart"}
+            size={"lg"}
+            color={"#000000"}
+            aria-label="Add to wishlist"
+            handleClick={() => {
+              dispatch(addToWishList({ item: item }));
+            }}
+          />
+        )}
         <Link to={`/productDetails/${id}`}>
           <RoundedIconBtn
             bg={"white"}

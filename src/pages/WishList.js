@@ -1,28 +1,38 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import coat from "../assets/coat.png";
+import { useDispatch, useSelector } from "react-redux";
 
 const WishList = () => {
+  const WishList = useSelector((state) => state.cart.wishList);
+  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
   return (
     <div className="md:py-5 md:w-[90%] m-auto">
       <div className="header flex justify-between ">
         <span>
-          Wishlist <span>(5)</span>
+          Wishlist <span>({WishList.length})</span>
         </span>
-        <Button variant="outline">Move All To Bag</Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">
-        {[1, 2, 3, 4].map((el) => {
+        {WishList.map((el) => {
+          let stars = [];
+          const rating = el.rating?.rate ?? 0;
+          for (let index = 0; index < 5; index++) {
+            index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
+          }
           return (
             <Card
               isRemove={true}
-              image={coat}
-              title="the north coat"
-              price={`$${260}`}
-              oldPrice={`$${350}`}
-              stars={[1, 2, 3]}
-              reviews={22}
+              id={el.id}
+              image={el.image}
+              item={el}
+              title={el.title}
+              price={`$${el.price}`}
+              oldPrice={`${el.price}`}
+              stars={stars}
+              reviews={el.rating.count}
             />
           );
         })}

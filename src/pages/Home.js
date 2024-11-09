@@ -117,7 +117,7 @@ const Home = () => {
               return (
                 el.image &&
                 el.title && (
-                  <Link to={`/ShopAll/${el.title}`}>
+                  <Link to={`/ShopAll/${el.title}`} key={idx}>
                     <CategoryCard key={idx} image={el.image} title={el.title} />
                   </Link>
                 )
@@ -279,6 +279,7 @@ const Home = () => {
         {Features.map((el, idx) => {
           return (
             <FeaturesSection
+              key={idx}
               img={el.img}
               subTitle={el.subTitle}
               title={el.title}

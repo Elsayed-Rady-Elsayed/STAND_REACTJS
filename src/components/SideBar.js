@@ -8,9 +8,10 @@ const SideBar = () => {
     <div className="text-start p-5 flex flex-col justify-start gap-3 border-e h-full">
       {!error &&
         !loading &&
-        categories.map((el) => {
+        categories.map((el, idx) => {
           return (
             <Link
+              key={idx}
               className="text-lg font-semibold capitalize"
               to={`/ShopAll/${el}`}
             >
