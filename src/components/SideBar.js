@@ -10,7 +10,10 @@ const SideBar = () => {
         !loading &&
         categories.map((el) => {
           return (
-            <Link className="text-lg font-semibold capitalize" to={"/ShopAll"}>
+            <Link
+              className="text-lg font-semibold capitalize"
+              to={`/ShopAll/${el}`}
+            >
               {el}
             </Link>
           );

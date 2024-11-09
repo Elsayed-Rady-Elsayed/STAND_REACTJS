@@ -116,7 +116,9 @@ const Home = () => {
               return (
                 el.image &&
                 el.title && (
-                  <CategoryCard key={idx} image={el.image} title={el.title} />
+                  <Link to={`/ShopAll/${el.title}`}>
+                    <CategoryCard key={idx} image={el.image} title={el.title} />
+                  </Link>
                 )
               );
             })}
