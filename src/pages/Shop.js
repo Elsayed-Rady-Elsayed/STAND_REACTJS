@@ -1,17 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import coat from "../assets/coat.png";
 import Card from "../components/Card";
 import { Select, Stack } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
+import { fetchCategories } from "../store/CategoriesSlice";
 const Shop = () => {
   window.scrollTo(0, 0);
-  const product = useSelector((state) => state.product.products);
+  const { products, loading, error } = useSelector((state) => state.product);
+  const { categories } = useSelector((state) => state.category);
+  const [viewListBasedOnCategory, setProductsListFromCate] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCategories());
+    setProductsListFromCate(products);
   }, [dispatch]);
-  console.log(product);
+
+  const handleChangeListProducts = (category) => {
+    if (category === "") {
+      setProductsListFromCate(products);
+    } else {
+      const list = products.filter((el) => {
+        return el.category === category;
+      });
+      setProductsListFromCate(list);
+    }
+  };
 
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
@@ -28,33 +43,46 @@ const Shop = () => {
           </Select>
         </div>
         <div>
-          <Select placeholder="Category">
-            <option value="phone">phone</option>
-            <option value="fashion">fashion</option>
-            <option value="men">men</option>
-            <option value="women">women</option>
-            <option value="computer">computer</option>
+          <Select
+            placeholder="All Category"
+            onChange={(ev) => {
+              handleChangeListProducts(ev.target.value);
+            }}
+          >
+            {categories.map((el, idx) => {
+              return (
+                <option key={idx} value={el} onClick={() => {}}>
+                  {el}
+                </option>
+              );
+            })}
           </Select>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-5">
-        {product.map((el) => {
-          let stars = [];
-          const rating = el.rating?.rate ?? 0;
-          for (let index = 0; index < 5; index++) {
-            index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
-          }
-          return (
-            <Card
-              image={el.image}
-              title={el.title}
-              price={`$${el.price}`}
-              oldPrice={`${el.price}`}
-              stars={stars}
-              reviews={el.rating.count}
-            />
-          );
-        })}
+        {!error &&
+          !loading &&
+          viewListBasedOnCategory.map((el, idx) => {
+            let stars = [];
+            const rating = el.rating?.rate ?? 0;
+            for (let index = 0; index < 5; index++) {
+              index < Math.round(Number(rating))
+                ? stars.push(1)
+                : stars.push(0);
+            }
+            return (
+              <Card
+                key={idx}
+                item={el}
+                image={el.image}
+                title={el.title}
+                price={`$${el.price}`}
+                oldPrice={`${el.price - el.price * 0.1}`}
+                stars={stars}
+                reviews={el.rating?.count ?? 0}
+              />
+            );
+          })}
       </div>
     </div>
   );

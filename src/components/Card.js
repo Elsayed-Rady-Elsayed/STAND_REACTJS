@@ -52,7 +52,7 @@ const Card = ({
           aria-label="Add to wishlist"
           handleClick={() => {}}
         />
-        <Link to="productDetails">
+        <Link to="/productDetails">
           <RoundedIconBtn
             bg={"white"}
             icon={"eye"}
