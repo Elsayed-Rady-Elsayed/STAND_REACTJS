@@ -17,7 +17,26 @@ import ProductDetails from "./pages/ProductDetails";
 import Shop from "./pages/Shop";
 import { ToastContainer } from "react-toastify";
 import Notification from "./components/Notification";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+import { fetchUserInfo } from "./store/userSlice";
 function App() {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unSub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(fetchUserInfo(user.uid));
+      } else {
+        dispatch(fetchUserInfo(null));
+      }
+    });
+    return () => {
+      unSub();
+    };
+  }, []);
   return (
     <div className="App overflow-hidden ">
       <Notification />

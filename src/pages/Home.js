@@ -31,6 +31,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
 import { fetchCategories } from "../store/CategoriesSlice";
 const Home = () => {
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {}, [window.innerWidth]);
   const categories = [
     { image: phone },

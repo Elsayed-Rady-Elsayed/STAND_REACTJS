@@ -1,10 +1,13 @@
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const user = useSelector((state) => state.user);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -45,11 +48,22 @@ const Header = () => {
                   About
                 </Link>
               </li>
-              <li>
-                <Link to="/SignUp" onClick={toggleMenu}>
-                  Sign Up
-                </Link>
-              </li>
+              {user.user.id === undefined ? (
+                <li>
+                  <Link to="/SignUp" onClick={toggleMenu}>
+                    Sign Up
+                  </Link>
+                </li>
+              ) : (
+                <li
+                  className="cursor-pointer"
+                  onClick={() => {
+                    auth.signOut();
+                  }}
+                >
+                  logout
+                </li>
+              )}
             </ul>
           </nav>
 
