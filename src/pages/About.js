@@ -22,7 +22,7 @@ const About = () => {
           <p className="text-sm mb-3">
             Exclusive has more than 1 Million products to offer, growing at a
             very fast. Exclusive offers a diverse assotment in categories
-            ranging from consumer.
+            ranging from Consumer.
           </p>
         </div>
         <img src={about} alt="" className="md:w-1/2 w-full" />
