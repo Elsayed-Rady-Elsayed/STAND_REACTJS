@@ -15,9 +15,13 @@ import Error404 from "./pages/Error404";
 import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails";
 import Shop from "./pages/Shop";
+import { ToastContainer } from "react-toastify";
+import Notification from "./components/Notification";
 function App() {
   return (
     <div className="App overflow-hidden ">
+      <Notification />
+
       <PreHeader />
       <Header />
       {/* <Billing /> */}
