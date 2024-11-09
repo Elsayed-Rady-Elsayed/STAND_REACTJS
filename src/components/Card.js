@@ -35,7 +35,6 @@ const Card = ({
       },
     },
   };
-  console.log(item);
 
   return (
     <motion.div

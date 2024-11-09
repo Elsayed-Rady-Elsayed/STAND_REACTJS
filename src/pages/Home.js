@@ -132,7 +132,32 @@ const Home = () => {
       <div className="bestSell relative md:my-[3rem] my-[1rem] md:p-0 p-2">
         <SectionHead title={"Best Selling Products"} />
         <div className="slider-container mb-[5rem] mt-5">
-          <PorductCarusal>{shownProducts}</PorductCarusal>
+          <PorductCarusal>
+            {product.map((el, idx) => {
+              let stars = [];
+              const rating = el.rating?.rate ?? 0;
+              for (let index = 0; index < 5; index++) {
+                index < Math.round(Number(rating))
+                  ? stars.push(1)
+                  : stars.push(0);
+              }
+              return (
+                el.rating.rate > 3.5 && (
+                  <Card
+                    key={idx}
+                    item={el}
+                    id={el.id}
+                    image={el.image}
+                    title={el.title}
+                    price={`$${el.price}`}
+                    oldPrice={`${el.price - el.price * 0.1}`}
+                    stars={stars}
+                    reviews={el.rating?.count ?? 0}
+                  />
+                )
+              );
+            })}
+          </PorductCarusal>
         </div>
       </div>
 

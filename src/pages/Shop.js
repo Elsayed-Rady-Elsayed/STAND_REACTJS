@@ -10,24 +10,24 @@ const Shop = () => {
   window.scrollTo(0, 0);
   const { products, loading, error } = useSelector((state) => state.product);
   const { categories } = useSelector((state) => state.category);
-  const [viewListBasedOnCategory, setProductsListFromCate] = useState([]);
+  const [viewList, setProductsList] = useState([]);
   const params = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
-    setProductsListFromCate(products);
+    setProductsList(products);
   }, []);
 
   const handleChangeListProducts = (category) => {
     if (category === "") {
-      setProductsListFromCate(products);
+      setProductsList(products);
     } else {
       const list = products.filter((el) => {
         return el.category === category;
       });
-      setProductsListFromCate(list);
+      setProductsList(list);
     }
   };
 
@@ -43,7 +43,7 @@ const Shop = () => {
     const s = ev.target.value;
     const sortFunction = sortingMethods[s];
 
-    setProductsListFromCate((prev) => {
+    setProductsList((prev) => {
       return sortFunction ? [...prev].sort(sortFunction) : products;
     });
   };
@@ -52,6 +52,20 @@ const Shop = () => {
       handleChangeListProducts(params.category);
     }
   }, []);
+
+  useEffect(() => {
+    if (params.q) {
+      const list = products.filter((el) => {
+        return (
+          el.title.toLowerCase().includes(params.q.toLowerCase()) ||
+          el.description.toLowerCase().includes(params.q.toLowerCase())
+        );
+      });
+      setProductsList(list);
+    } else {
+      setProductsList(products);
+    }
+  }, [params.q]);
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
       <p className="md:ps-2 font-bold text-2xl">Shop</p>
@@ -86,7 +100,7 @@ const Shop = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-5">
         {!error &&
           !loading &&
-          viewListBasedOnCategory.map((el, idx) => {
+          viewList.map((el, idx) => {
             let stars = [];
             const rating = el.rating?.rate ?? 0;
             for (let index = 0; index < 5; index++) {

@@ -75,7 +75,7 @@ const ProductDetails = () => {
               })}
             </div>
             <p className="text-sm text-slate-400">
-              ({singleProducts.rating.count} reviews)
+              ({singleProducts.rating?.count ?? 0} reviews)
             </p>
             <div className="h-full w-0.5 bg-slate-200"></div>
             <span className="text-green-500 font-bold">In Stock</span>

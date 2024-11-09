@@ -2,18 +2,18 @@ import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const nav = useNavigate();
+  const [query, setQuery] = useState("");
   const user = useSelector((state) => state.user);
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
-      console.log("Searching...");
+      nav(`/ShopAll/search/${query}`);
     }
   };
 
@@ -83,6 +83,10 @@ const Header = () => {
                 placeholder="What are you looking for?"
                 focusBorderColor="red"
                 onKeyPress={handleSearch}
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
               />
             </InputGroup>
             <Link to="/favourits" aria-label="View favourites">
