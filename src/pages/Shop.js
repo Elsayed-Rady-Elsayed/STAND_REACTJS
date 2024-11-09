@@ -47,14 +47,12 @@ const Shop = () => {
       return sortFunction ? [...prev].sort(sortFunction) : products;
     });
   };
+  console.log(params);
+
   useEffect(() => {
     if (params.category) {
       handleChangeListProducts(params.category);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (params.q) {
+    } else if (params.q) {
       const list = products.filter((el) => {
         return (
           el.title.toLowerCase().includes(params.q.toLowerCase()) ||
@@ -65,7 +63,8 @@ const Shop = () => {
     } else {
       setProductsList(products);
     }
-  }, [params.q]);
+  }, [params]);
+
   return (
     <div className="text-start md:w-[90%] m-auto p-2 md:p-0 my-[2rem]">
       <p className="md:ps-2 font-bold text-2xl">Shop</p>
