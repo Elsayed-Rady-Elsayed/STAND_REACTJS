@@ -9,6 +9,7 @@ import {
   addToWishList,
   removeFromWishList,
 } from "../store/CartSlice";
+import { toast } from "react-toastify";
 
 const Card = ({
   isRemove,
@@ -57,6 +58,7 @@ const Card = ({
             aria-label="remove wishlist"
             handleClick={() => {
               dispatch(removeFromWishList({ item: item }));
+              toast.success("item removed from wishList");
             }}
           />
         ) : (
@@ -68,6 +70,7 @@ const Card = ({
             aria-label="Add to wishlist"
             handleClick={() => {
               dispatch(addToWishList({ item: item }));
+              toast.success("item added to wishList");
             }}
           />
         )}
@@ -100,6 +103,7 @@ const Card = ({
             ref={cardRef}
             onClick={() => {
               dispatch(addToCart({ item: { ...item, quantity: 1 } }));
+              toast.success("item added to cart");
             }}
           >
             Add to cart

@@ -10,6 +10,7 @@ const Header = () => {
   const nav = useNavigate();
   const [query, setQuery] = useState("");
   const user = useSelector((state) => state.user);
+  const cartAndWishList = useSelector((state) => state.cart);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
@@ -89,12 +90,22 @@ const Header = () => {
                 }}
               />
             </InputGroup>
-            <Link to="/favourits" aria-label="View favourites">
+            <Link
+              to="/favourits"
+              aria-label="View favourites"
+              className="relative"
+            >
               <i className="fa-regular fa-heart fa-lg"></i>
+              <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
+                {cartAndWishList.wishList.length}
+              </span>
             </Link>
 
-            <Link to="/cart" aria-label="View cart">
+            <Link to="/cart" aria-label="View cart" className="relative">
               <i className="fa-solid fa-cart-shopping fa-lg"></i>
+              <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
+                {cartAndWishList.cart.length}
+              </span>
             </Link>
           </div>
         </div>

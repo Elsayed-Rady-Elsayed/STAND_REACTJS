@@ -4,6 +4,7 @@ import { Button, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, changeQuantityCart } from "../store/CartSlice";
+import { toast } from "react-toastify";
 const Cart = () => {
   const cartStore = useSelector((state) => state.cart.cart);
   const [count, setCount] = useState(1);
@@ -25,6 +26,7 @@ const Cart = () => {
           {cartStore.map((el) => {
             if (el.quantity === 0) {
               dispatch(removeFromCart({ item: el }));
+              toast.success("item removed from cart");
             }
             return (
               <tr key="" className="shadow-sm h-16 md:text-md text-xs">
