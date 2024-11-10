@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
@@ -15,16 +14,14 @@ import Error404 from "./pages/Error404";
 import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails";
 import Shop from "./pages/Shop";
-import { ToastContainer } from "react-toastify";
 import Notification from "./components/Notification";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { fetchUserInfo } from "./store/userSlice";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
 function App() {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
@@ -38,37 +35,13 @@ function App() {
       unSub();
     };
   }, []);
+  console.log(user);
 
-  const updateUserData = async (uid, newData) => {
-    try {
-      const userDocRef = doc(db, "users", uid);
-      await updateDoc(userDocRef, newData);
-      window.location.reload();
-      console.log("Document updated successfully");
-    } catch (error) {
-      console.error("Error updating document: ", error);
-    }
-  };
-  const cartAndWishList = useSelector((state) => state.cart);
-  const userInfo = useSelector((state) => state.user.user);
-  useEffect(() => {
-    if (userInfo && userInfo.id) {
-      updateUserData(userInfo.id, {
-        cart: [...(userInfo.cart || []), ...cartAndWishList.cart],
-        wishList: [...(userInfo.wishList || []), ...cartAndWishList.wishList],
-        orders: userInfo.orders || [],
-        email: userInfo.email || "",
-        id: userInfo.id,
-        name: userInfo.name || "",
-      });
-    }
-  }, [cartAndWishList]);
   return (
     <div className="App overflow-hidden ">
       <Notification />
       <PreHeader />
       <Header />
-      {/* <Billing /> */}
       <Routes>
         <Route path="*" element={<Error404 />} />
         <Route path="/" element={<Home />} />

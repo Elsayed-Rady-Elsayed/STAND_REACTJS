@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, changeQuantityCart } from "../store/CartSlice";
 import { toast } from "react-toastify";
 const Cart = () => {
-  const cartStore = useSelector((state) => state.cart.cart);
+  const cartList = useSelector((state) => state.user);
+  console.log(cartList.user.cart);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -23,7 +24,7 @@ const Cart = () => {
             <td>quantitiy</td>
             <td>subtotal</td>
           </tr>
-          {cartStore.map((el) => {
+          {cartList.user.cart.map((el) => {
             if (el.quantity === 0) {
               dispatch(removeFromCart({ item: el }));
               toast.success("item removed from cart");
@@ -127,7 +128,7 @@ const Cart = () => {
                 <Button
                   colorScheme="red"
                   onClick={() => {
-                    nav("/Billing", { state: { product: cartStore } });
+                    nav("/Billing", { state: { product: cartList.user.cart } });
                   }}
                 >
                   process to checkout

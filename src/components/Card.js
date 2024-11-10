@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import RoundedIconBtn from "./RoundedIconBtn";
@@ -8,8 +8,10 @@ import {
   addToCart,
   addToWishList,
   removeFromWishList,
-} from "../store/CartSlice";
+} from "../store/userSlice";
 import { toast } from "react-toastify";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Card = ({
   isRemove,
@@ -39,7 +41,26 @@ const Card = ({
       },
     },
   };
-
+  const user = useSelector((state) => state.user);
+  const updateUserData = async (uid, newData) => {
+    try {
+      const userDocRef = doc(db, "users", uid);
+      await updateDoc(userDocRef, newData);
+      console.log("Document updated successfully");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  };
+  // if (userInfo && userInfo.id) {
+  //   updateUserData(userInfo.id, {
+  //     cart: [...userInfo.user.cart],
+  //     wishList: [...userInfo.user.wishList],
+  //     orders: userInfo.user.orders || [],
+  //     email: userInfo.user.email || "",
+  //     id: userInfo.user.id,
+  //     name: userInfo.user.name || "",
+  //   });
+  // }
   return (
     <motion.div
       variants={cardVariants}

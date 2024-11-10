@@ -10,13 +10,17 @@ const Header = () => {
   const nav = useNavigate();
   const [query, setQuery] = useState("");
   const user = useSelector((state) => state.user);
-  const cartAndWishList = useSelector((state) => state.cart);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
       nav(`/ShopAll/search/${query}`);
     }
   };
+
+  const wishListCount = (user?.wishList || user.wishList || []).length;
+  const cartCount = (user?.cart || user.cart || []).length;
 
   return (
     <header className="border-b border-gray-200 relative">
@@ -49,7 +53,7 @@ const Header = () => {
                   About
                 </Link>
               </li>
-              {user.user.id === undefined ? (
+              {user.user === undefined ? (
                 <li>
                   <Link to="/SignUp" onClick={toggleMenu}>
                     Sign Up
@@ -97,18 +101,14 @@ const Header = () => {
             >
               <i className="fa-regular fa-heart fa-lg"></i>
               <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
-                {user.user.id
-                  ? user.user.wishList.length
-                  : cartAndWishList.wishList.length}
+                {wishListCount}
               </span>
             </Link>
 
             <Link to="/cart" aria-label="View cart" className="relative">
               <i className="fa-solid fa-cart-shopping fa-lg"></i>
               <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
-                {user.user.id
-                  ? user.user.cart.length
-                  : cartAndWishList.cart.length}{" "}
+                {cartCount}
               </span>
             </Link>
           </div>
