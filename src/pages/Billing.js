@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Target } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import monitor from "../assets/monitior.png";
 import { useLocation, useParams } from "react-router-dom";
 const Billing = () => {
@@ -23,6 +23,7 @@ const Billing = () => {
     PhoneNumber: "",
     EmailAddress: "",
   });
+  const [totalPrice, setTotalPrice] = useState(0);
   const setTheBillingData = (evt) => {
     const { name, value } = evt.target;
     setUserBillState((prev) => ({
@@ -32,7 +33,15 @@ const Billing = () => {
   };
   const location = useLocation();
   const product = location.state.product;
-  console.log(product);
+  useEffect(() => {
+    if (Array.isArray(product)) {
+      setTotalPrice(
+        product.reduce((total, num) => {
+          return total.price + num.price * num.quantity;
+        })
+      );
+    }
+  }, []);
 
   return (
     <div className="text-start md:w-[90%] w-full p-2 md:p-5 m-auto mt-10">
@@ -143,7 +152,7 @@ const Billing = () => {
                       <img src={el.image} alt="" className="h-full" />
                       <p>{el.title}</p>
                     </div>
-                    <p>${el.price}</p>
+                    <p>${el.price * el.quantity}</p>
                   </Box>
                 );
               })
@@ -151,7 +160,12 @@ const Billing = () => {
               <Box bg="" className="flex justify-between gap-10 items-center">
                 <div className="flex gap-3 items-center h-10">
                   <img src={product.image} alt="" className="h-full" />
-                  <p>{product.title}</p>
+                  <div>
+                    <p className="text-sm">{product.title}</p>
+                    <p className="text-sm text-gray-500">
+                      {product.quantity} item
+                    </p>
+                  </div>
                 </div>
                 <p>${product.price}</p>
               </Box>
@@ -159,15 +173,23 @@ const Billing = () => {
 
             <Box bg="" className="flex justify-between gap-10 items-center">
               <p>SubTotal</p>
-              <p>$1750</p>
+              <p>
+                $
+                {!Array.isArray(product)
+                  ? product.price * product.quantity
+                  : totalPrice}
+              </p>
             </Box>
             <Box bg="" className="flex justify-between gap-10 items-center">
               <p>Shipping</p>
-              <p>$1750</p>
+              <p>$50</p>
             </Box>
             <Box bg="" className="flex justify-between gap-10 items-center">
               <p>Total</p>
-              <p>$1750</p>
+              <p>
+                $
+                {!Array.isArray(product) ? product.price + 50 : totalPrice + 50}
+              </p>
             </Box>
             <RadioGroup defaultValue="2">
               <VStack align={"start"} spacing={5} direction="row">
@@ -179,11 +201,20 @@ const Billing = () => {
                 </Radio>
               </VStack>
             </RadioGroup>
-            <div className="flex gap-2 w-full">
-              <Input placeholder="Coupon Code" />
-              <Button className="" colorScheme="red" width={"200px"}>
-                Apply Coupon
-              </Button>
+            <div className=" relative">
+              <span className="absolute text-3xl capitalize left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                comming soon
+              </span>
+              <div className=" opacity-45 flex gap-2 w-full">
+                <Input placeholder="Coupon Code" readOnly />
+                <Button
+                  className="cursor-not-allowed"
+                  colorScheme="red"
+                  width={"200px"}
+                >
+                  Apply Coupon
+                </Button>
+              </div>
             </div>
             <Button className="" colorScheme="red" width={"200px"}>
               place order
