@@ -54,6 +54,7 @@ const Billing = () => {
                 first name <span className="text-red-600">*</span>
               </label>
               <Input
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.FirstName}
                 onChange={(evt) => {
@@ -67,6 +68,7 @@ const Billing = () => {
                 Last Name <span className="text-red-600">*</span>
               </label>
               <Input
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.LastName}
                 onChange={(evt) => {
@@ -80,6 +82,7 @@ const Billing = () => {
                 Town / city <span className="text-red-600">*</span>
               </label>
               <Input
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.StreetAddress}
                 onChange={(evt) => {
@@ -93,6 +96,7 @@ const Billing = () => {
                 Appartment <span className="text-red-600">*</span>
               </label>
               <Input
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.Appartment}
                 onChange={(evt) => {
@@ -106,12 +110,13 @@ const Billing = () => {
                 Email Address <span className="text-red-600">*</span>
               </label>
               <Input
+                name="email"
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.EmailAddress}
                 onChange={(evt) => {
                   setTheBillingData(evt);
                 }}
-                name="EmailAddress"
               />
             </div>
             <div>
@@ -119,20 +124,29 @@ const Billing = () => {
                 phone number <span className="text-red-600">*</span>
               </label>
               <Input
+                name="phone"
+                required
                 bg={"#F5F5F5"}
                 value={userBillState.PhoneNumber}
                 onChange={(evt) => {
                   setTheBillingData(evt);
                 }}
-                name="PhoneNumber"
               />
             </div>
+            <Stack className="" spacing={5} direction="row">
+              <Checkbox colorScheme="red" className="text-sm" defaultChecked>
+                Save this information for faster check-out next time
+              </Checkbox>
+            </Stack>
+            <button
+              type="submit"
+              className="bg-red-500 text-white p-2 rounded-md"
+              colorScheme="red"
+              width={"200px"}
+            >
+              place order
+            </button>
           </form>
-          <Stack className="mt-5" spacing={5} direction="row">
-            <Checkbox colorScheme="red" className="text-sm" defaultChecked>
-              Save this information for faster check-out next time
-            </Checkbox>
-          </Stack>
         </div>
         <div className="mt-10 md:w-[450px]">
           <VStack
@@ -216,9 +230,6 @@ const Billing = () => {
                 </Button>
               </div>
             </div>
-            <Button className="" colorScheme="red" width={"200px"}>
-              place order
-            </Button>
           </VStack>
         </div>
       </div>
