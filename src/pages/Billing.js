@@ -13,6 +13,7 @@ import { Target } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import monitor from "../assets/monitior.png";
 import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const Billing = () => {
   const [userBillState, setUserBillState] = useState({
     FirstName: "",
@@ -55,6 +56,17 @@ const Billing = () => {
               event.preventDefault();
               const formData = new FormData(event.target);
               const data = new Object.fromEntries(formData.entries());
+              if (
+                data.FirstName &&
+                data.LastName &&
+                data.Town &&
+                data.Appartment &&
+                data.EmailAddress &&
+                data.PhoneNumber
+              ) {
+              } else {
+                toast.error("please enter all your information");
+              }
             }}
           >
             <div>
