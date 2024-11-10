@@ -10,7 +10,6 @@ const Cart = () => {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const nav = useNavigate();
-  console.log(cartStore);
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
       <div className="text-start">

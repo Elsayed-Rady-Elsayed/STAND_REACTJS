@@ -47,7 +47,6 @@ const Shop = () => {
       return sortFunction ? [...prev].sort(sortFunction) : products;
     });
   };
-  console.log(params);
 
   useEffect(() => {
     if (params.category) {

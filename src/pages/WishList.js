@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const WishList = () => {
   const WishList = useSelector((state) => state.cart.wishList);
-  const [count, setCount] = useState(1);
-  const dispatch = useDispatch();
   return (
     <div className="md:py-5 md:w-[90%] m-auto">
       <div className="header flex justify-between ">

@@ -20,7 +20,6 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(fetchProductById(params.id));
   }, []);
-  console.log(singleProducts);
   let stars = [];
   const rating = singleProducts.rating?.rate ?? 0;
   for (let index = 0; index < 5; index++) {
