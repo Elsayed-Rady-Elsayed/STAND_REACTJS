@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTimer } from "react-timer-hook";
 
 const Timer = ({ expiryTimestamp }) => {
+  //package for the timestamp
   const {
     totalSeconds,
     seconds,
