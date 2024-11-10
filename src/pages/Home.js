@@ -25,6 +25,8 @@ import FeaturesSection from "../components/Features";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
 import { fetchCategories } from "../store/CategoriesSlice";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 const Home = () => {
   const user = useSelector((state) => state.user);
   const nav = useNavigate();
@@ -84,6 +86,7 @@ const Home = () => {
   });
   const time = new Date();
   time.setSeconds(time.getSeconds() + 90000);
+
   return (
     <div className="md:w-[90%] w-full m-auto">
       <div className="flex md:mb-[3rem] mb-[1rem]">

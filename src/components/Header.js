@@ -97,14 +97,18 @@ const Header = () => {
             >
               <i className="fa-regular fa-heart fa-lg"></i>
               <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
-                {cartAndWishList.wishList.length}
+                {user.user.id
+                  ? user.user.wishList.length
+                  : cartAndWishList.wishList.length}
               </span>
             </Link>
 
             <Link to="/cart" aria-label="View cart" className="relative">
               <i className="fa-solid fa-cart-shopping fa-lg"></i>
               <span className="absolute bg-black text-white w-4 h-4 text-[11px] rounded-full -left-2 -top-1">
-                {cartAndWishList.cart.length}
+                {user.user.id
+                  ? user.user.cart.length
+                  : cartAndWishList.cart.length}{" "}
               </span>
             </Link>
           </div>

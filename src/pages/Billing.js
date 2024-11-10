@@ -9,30 +9,18 @@ import {
   StackDivider,
   VStack,
 } from "@chakra-ui/react";
-import { Target } from "lucide-react";
+import { doc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import monitor from "../assets/monitior.png";
 import { useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { db } from "../firebase";
+import { useSelector } from "react-redux";
 const Billing = () => {
-  const [userBillState, setUserBillState] = useState({
-    FirstName: "",
-    LastName: "",
-    StreetAddress: "",
-    Appartment: "",
-    Town: "",
-    PhoneNumber: "",
-    EmailAddress: "",
-  });
   const [totalPrice, setTotalPrice] = useState(0);
-  const setTheBillingData = (evt) => {
-    const { name, value } = evt.target;
-    setUserBillState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [selectOpt, setSelectOpt] = useState();
   const location = useLocation();
+  const cartAndWishList = useSelector((state) => state.cart);
+  const userInfo = useSelector((state) => state.user.user);
   const product = location.state.product;
   useEffect(() => {
     if (Array.isArray(product)) {
@@ -43,7 +31,14 @@ const Billing = () => {
       );
     }
   }, []);
-
+  const updateUserOrders = async (uid, newData) => {
+    try {
+      const docRef = doc(db, "users", uid);
+      await updateDoc(docRef, newData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div className="text-start md:w-[90%] w-full p-2 md:p-5 m-auto mt-10">
       <h3 className="text-3xl font-bold">billing detail</h3>
@@ -55,15 +50,32 @@ const Billing = () => {
             onSubmit={(event) => {
               event.preventDefault();
               const formData = new FormData(event.target);
-              const data = new Object.fromEntries(formData.entries());
+              const data = Object.fromEntries(formData.entries());
               if (
                 data.FirstName &&
                 data.LastName &&
                 data.Town &&
                 data.Appartment &&
-                data.EmailAddress &&
-                data.PhoneNumber
+                data.email &&
+                data.phone
               ) {
+                if (selectOpt === "cod") {
+                  updateUserOrders(userInfo.id, {
+                    cart: cartAndWishList.cart,
+                    wishList: cartAndWishList.wishList,
+                    orders: [
+                      ...userInfo.orders,
+                      Array.isArray(product) ? [...product] : product,
+                    ],
+                    email: userInfo.email,
+                    id: userInfo.id,
+                    name: userInfo.name,
+                  });
+                  toast.success("your order created successfully");
+                } else {
+                  ///todo
+                  //add online payment
+                }
               } else {
                 toast.error("please enter all your information");
               }
@@ -73,85 +85,37 @@ const Billing = () => {
               <label htmlFor="" className="text-xs capitalize">
                 first name <span className="text-red-600">*</span>
               </label>
-              <Input
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.FirstName}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-                name="FirstName"
-              />
+              <Input required bg={"#F5F5F5"} name="FirstName" />
             </div>
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 Last Name <span className="text-red-600">*</span>
               </label>
-              <Input
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.LastName}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-                name="LastName"
-              />
+              <Input required bg={"#F5F5F5"} name="LastName" />
             </div>
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 Town / city <span className="text-red-600">*</span>
               </label>
-              <Input
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.StreetAddress}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-                name="Town"
-              />
+              <Input required bg={"#F5F5F5"} name="Town" />
             </div>
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 Appartment <span className="text-red-600">*</span>
               </label>
-              <Input
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.Appartment}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-                name="Appartment"
-              />
+              <Input required bg={"#F5F5F5"} name="Appartment" />
             </div>
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 Email Address <span className="text-red-600">*</span>
               </label>
-              <Input
-                name="email"
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.EmailAddress}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-              />
+              <Input name="email" required bg={"#F5F5F5"} />
             </div>
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 phone number <span className="text-red-600">*</span>
               </label>
-              <Input
-                name="phone"
-                required
-                bg={"#F5F5F5"}
-                value={userBillState.PhoneNumber}
-                onChange={(evt) => {
-                  setTheBillingData(evt);
-                }}
-              />
+              <Input name="phone" required bg={"#F5F5F5"} />
             </div>
             <Stack className="" spacing={5} direction="row">
               <Checkbox colorScheme="red" className="text-sm" defaultChecked>
@@ -225,12 +189,17 @@ const Billing = () => {
                 {!Array.isArray(product) ? product.price + 50 : totalPrice + 50}
               </p>
             </Box>
-            <RadioGroup defaultValue="2">
+            <RadioGroup
+              defaultValue="2"
+              onChange={(e) => {
+                setSelectOpt(e);
+              }}
+            >
               <VStack align={"start"} spacing={5} direction="row">
-                <Radio colorScheme="red" value="1">
+                <Radio colorScheme="red" value="bank">
                   Bank
                 </Radio>
-                <Radio colorScheme="red" value="2">
+                <Radio colorScheme="red" value="cod">
                   Cash on delivery
                 </Radio>
               </VStack>

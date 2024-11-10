@@ -38,28 +38,30 @@ function App() {
       unSub();
     };
   }, []);
-  const cartAndWishList = useSelector((state) => state.cart);
-  const userInfo = useSelector((state) => state.user.user);
 
   const updateUserData = async (uid, newData) => {
     try {
       const userDocRef = doc(db, "users", uid);
       await updateDoc(userDocRef, newData);
+      window.location.reload();
       console.log("Document updated successfully");
     } catch (error) {
       console.error("Error updating document: ", error);
     }
   };
-
+  const cartAndWishList = useSelector((state) => state.cart);
+  const userInfo = useSelector((state) => state.user.user);
   useEffect(() => {
-    updateUserData(userInfo.id, {
-      cart: cartAndWishList.cart,
-      wishList: cartAndWishList.wishList,
-      orders: userInfo.orders,
-      email: userInfo.email,
-      id: userInfo.id,
-      name: userInfo.name,
-    });
+    if (userInfo && userInfo.id) {
+      updateUserData(userInfo.id, {
+        cart: [...(userInfo.cart || []), ...cartAndWishList.cart],
+        wishList: [...(userInfo.wishList || []), ...cartAndWishList.wishList],
+        orders: userInfo.orders || [],
+        email: userInfo.email || "",
+        id: userInfo.id,
+        name: userInfo.name || "",
+      });
+    }
   }, [cartAndWishList]);
   return (
     <div className="App overflow-hidden ">
