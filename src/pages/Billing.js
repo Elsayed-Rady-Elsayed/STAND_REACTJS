@@ -48,7 +48,15 @@ const Billing = () => {
       <h3 className="text-3xl font-bold">billing detail</h3>
       <div className="flex justify-between md:flex-row flex-col">
         <div className="text-start">
-          <form className=" mt-10 flex flex-col gap-4" action="">
+          <form
+            className=" mt-10 flex flex-col gap-4"
+            action=""
+            onSubmit={(event) => {
+              event.preventDefault();
+              const formData = new FormData(event.target);
+              const data = new Object.fromEntries(formData.entries());
+            }}
+          >
             <div>
               <label htmlFor="" className="text-xs capitalize">
                 first name <span className="text-red-600">*</span>
