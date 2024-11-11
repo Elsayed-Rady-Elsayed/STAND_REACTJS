@@ -10,8 +10,29 @@ const Cart = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log(user);
 
+  const handleChangeDataToCart = (item, isRemove) => {
+    let list = [...user.cart];
+    console.log(list);
+
+    if (isRemove) {
+      const index = list.findIndex((product) => product.id === item.id);
+      if (index !== -1) list.splice(index, 1);
+    }
+    dispatch(
+      updateUserInfoCartAndList({
+        uid: window.localStorage.getItem("uid"),
+        newData: {
+          cart: isRemove ? list : [...user.cart, item],
+          wishList: user.wishList,
+          orders: user.user.orders,
+          email: user.user.email,
+          id: user.user.id,
+          name: user.user.name,
+        },
+      })
+    );
+  };
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
       <div className="text-start">
@@ -40,6 +61,7 @@ const Cart = () => {
                           item: el,
                         })
                       );
+                      handleChangeDataToCart(el, true);
                     }}
                     className="bg-red-500 absolute h-4 w-4 cursor-pointer rounded-full flex items-center justify-center text-white pb-1 -top-1 start-0"
                   >
