@@ -19,9 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
-import { fetchUserInfo } from "./store/userSlice";
+import { fetchUserInfo, updateUserInfoCartAndList } from "./store/userSlice";
 function App() {
-  const user = useSelector((state) => state.user);
+  const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
@@ -31,25 +31,11 @@ function App() {
         dispatch(fetchUserInfo(null));
       }
     });
+
     return () => {
       unSub();
     };
   }, []);
-  //  useEffect(() => {
-  //    dispatch(
-  //      updateUserInfoCartAndList({
-  //        uid: user.user.id,
-  //        newData: {
-  //          cart: user.cart,
-  //          wishList: user.wishList,
-  //          orders: user.user.orders || [],
-  //          email: user.user.email || "",
-  //          id: user.user.id,
-  //          name: user.user.name || "",
-  //        },
-  //      })
-  //    );
-  //  }, [dispatch]);
 
   return (
     <div className="App overflow-hidden ">

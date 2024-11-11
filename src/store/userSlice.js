@@ -22,8 +22,6 @@ export const fetchUserInfo = createAsyncThunk(
 export const updateUserInfoCartAndList = createAsyncThunk(
   "userSlice/updateUserInfo",
   async ({ uid, newData }, { rejectWithValue }) => {
-    console.log(uid);
-
     try {
       const userDocRef = doc(db, "users", uid);
       await updateDoc(userDocRef, newData);

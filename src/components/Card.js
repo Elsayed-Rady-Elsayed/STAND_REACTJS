@@ -40,6 +40,22 @@ const Card = ({
       },
     },
   };
+  const userInfo = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(
+      updateUserInfoCartAndList({
+        uid: userInfo.user.id,
+        newData: {
+          cart: userInfo.cart,
+          wishList: userInfo.wishList,
+          orders: userInfo.user.orders,
+          email: userInfo.user.email,
+          id: userInfo.user.id,
+          name: userInfo.user.name,
+        },
+      })
+    );
+  }, []);
   return (
     <motion.div
       variants={cardVariants}
