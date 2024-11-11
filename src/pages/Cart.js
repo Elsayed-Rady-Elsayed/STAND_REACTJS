@@ -14,7 +14,12 @@ const Cart = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const user = useSelector((state) => state.user);
-
+  const calcTotal = () => {
+    const total = user.cart.reduce((total, el) => {
+      return total + el.price;
+    }, 0);
+    return total;
+  };
   const handleChangeDataToCart = (item, isRemove, isEdit) => {
     let list = [...user.cart];
     if (isRemove && !isEdit) {
@@ -144,22 +149,22 @@ const Cart = () => {
             </tr>
             <tr key="" className="border-b table-responsive w-full">
               <td className="py-3">subtotal:</td>
-              <td className="text-end py-3">$1650</td>
+              <td className="text-end py-3">${calcTotal()}</td>
             </tr>
             <tr key="" className="border-b">
               <td className="py-3">shipping:</td>
-              <td className="text-end py-3">$1650</td>
+              <td className="text-end py-3">$50</td>
             </tr>
             <tr key="">
               <td className="py-3">total:</td>
-              <td className="text-end py-3">$1650</td>
+              <td className="text-end py-3">${calcTotal() + 50}</td>
             </tr>
             <tr key="">
               <td colSpan="2" className="text-center py-3">
                 <Button
                   colorScheme="red"
                   onClick={() => {
-                    nav("/Billing", { state: { product: user.user.cart } });
+                    nav("/Billing", { state: { product: user.cart } });
                   }}
                 >
                   process to checkout

@@ -22,6 +22,8 @@ const Billing = () => {
   const cartAndWishList = useSelector((state) => state.user);
   const userInfo = useSelector((state) => state.user.user);
   const product = location.state.product;
+  console.log(product);
+
   useEffect(() => {
     if (Array.isArray(product)) {
       setTotalPrice(
