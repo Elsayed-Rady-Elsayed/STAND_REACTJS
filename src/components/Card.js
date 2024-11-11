@@ -86,7 +86,7 @@ const Card = ({
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      className="relative w-[250px] min-h-[370px] px-1"
+      className="relative max-w-[250px] min-h-[370px] px-1"
       onClick={toggleCartVisibility}
     >
       <div className="absolute end-3 top-5 flex flex-col gap-4 z-50">

@@ -6,13 +6,13 @@ const WishList = () => {
   const WishList = useSelector((state) => state.user);
 
   return (
-    <div className="md:py-5 md:w-[90%] m-auto">
+    <div className="md:py-5 px-3 md:px-0 md:w-[90%] m-auto">
       <div className="header flex justify-between ">
         <span>
           Wishlist <span>({WishList.wishList.length})</span>
         </span>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-5">
         {WishList.wishList?.map((el, idx) => {
           let stars = [];
           const rating = el.rating?.rate ?? 0;

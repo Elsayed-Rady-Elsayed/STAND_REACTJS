@@ -40,7 +40,7 @@ const Cart = () => {
     );
   };
   return (
-    <div className="md:w-[80%] px-2 m-auto md:py-10">
+    <div className="md:w-[80%] px-3 m-auto md:py-10">
       <div className="text-start">
         <span className="text-gray-400">Home</span> / Cart
       </div>

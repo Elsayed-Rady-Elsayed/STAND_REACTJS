@@ -203,21 +203,6 @@ const ProductDetails = () => {
       </div>
 
       <SectionHead title={"Related Item"} />
-
-      <div className="flex flex-col md:flex-row gap-3 justify-between my-10">
-        {[1, 2, 3, 4].map((el) => {
-          return (
-            <Card
-              image={coat}
-              title="the north coat"
-              price={`$${260}`}
-              oldPrice={`$${350}`}
-              stars={[1, 2, 3]}
-              reviews={22}
-            />
-          );
-        })}
-      </div>
     </div>
   );
 };
