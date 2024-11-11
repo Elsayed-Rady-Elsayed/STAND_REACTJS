@@ -23,6 +23,9 @@ export const updateUserInfoCartAndList = createAsyncThunk(
   "userSlice/updateUserInfo",
   async ({ uid, newData }, { rejectWithValue }) => {
     try {
+      console.log(uid);
+      console.log(newData);
+
       const userDocRef = doc(db, "users", uid);
       await updateDoc(userDocRef, newData);
     } catch (e) {
@@ -48,7 +51,9 @@ export const userSlice = createSlice({
       const index = state.cart.findIndex(
         (product) => product.id === action.payload.item.id
       );
-      if (index !== -1) state.cart.splice(index, 1);
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+      }
     },
     addToWishList: (state, action) => {
       state.wishList.push(action.payload.item);

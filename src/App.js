@@ -27,6 +27,7 @@ function App() {
     const unSub = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(fetchUserInfo(user.uid));
+        window.localStorage.setItem("uid", user.uid);
       } else {
         dispatch(fetchUserInfo(null));
       }

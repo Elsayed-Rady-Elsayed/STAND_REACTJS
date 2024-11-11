@@ -10,6 +10,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const user = useSelector((state) => state.user);
+  console.log(user);
 
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
@@ -24,13 +25,13 @@ const Cart = () => {
             <td>quantitiy</td>
             <td>subtotal</td>
           </tr>
-          {user.cart?.map((el) => {
+          {user.cart?.map((el, idx) => {
             if (el.quantity === 0) {
               dispatch(removeFromCart({ item: el }));
               toast.success("item removed from cart");
             }
             return (
-              <tr key="" className="shadow-sm h-16 md:text-md text-xs">
+              <tr key={idx} className="shadow-sm h-16 md:text-md text-xs">
                 <td className="flex items-center mt-4 relative ps-2 ">
                   <span
                     onClick={() => {

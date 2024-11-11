@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   addToWishList,
+  fetchUserInfo,
   removeFromWishList,
   updateUserInfoCartAndList,
 } from "../store/userSlice";
@@ -41,12 +42,14 @@ const Card = ({
     },
   };
   const userInfo = useSelector((state) => state.user);
-  useEffect(() => {
+  // console.log(userInfo);
+
+  const handleChangeDataToCart = (item) => {
     dispatch(
       updateUserInfoCartAndList({
-        uid: userInfo.user.id,
+        uid: window.localStorage.getItem("uid"),
         newData: {
-          cart: userInfo.cart,
+          cart: [...userInfo.cart, { ...item, quantity: 1 }],
           wishList: userInfo.wishList,
           orders: userInfo.user.orders,
           email: userInfo.user.email,
@@ -55,7 +58,29 @@ const Card = ({
         },
       })
     );
-  }, []);
+  };
+
+  const handleChangeDataToWishList = (item, isRemove) => {
+    let list = [...userInfo.wishList];
+    if (isRemove) {
+      const index = list.findIndex((product) => product.id === item.id);
+      if (index !== -1) list.splice(index, 1);
+    }
+    dispatch(
+      updateUserInfoCartAndList({
+        uid: window.localStorage.getItem("uid"),
+        newData: {
+          cart: userInfo.cart,
+          wishList: isRemove ? list : [...userInfo.wishList, item],
+          orders: userInfo.user.orders,
+          email: userInfo.user.email,
+          id: userInfo.user.id,
+          name: userInfo.user.name,
+        },
+      })
+    );
+  };
+
   return (
     <motion.div
       variants={cardVariants}
@@ -75,6 +100,7 @@ const Card = ({
             handleClick={() => {
               dispatch(removeFromWishList({ item: item }));
               toast.success("item removed from wishList");
+              handleChangeDataToWishList(item, true);
             }}
           />
         ) : (
@@ -87,6 +113,7 @@ const Card = ({
             handleClick={() => {
               dispatch(addToWishList({ item: item }));
               toast.success("item added to wishList");
+              handleChangeDataToWishList(item, false);
             }}
           />
         )}
@@ -120,6 +147,7 @@ const Card = ({
             onClick={() => {
               dispatch(addToCart({ item: { ...item, quantity: 1 } }));
               toast.success("item added to cart");
+              handleChangeDataToCart({ ...item, quantity: 1 });
             }}
           >
             Add to cart
