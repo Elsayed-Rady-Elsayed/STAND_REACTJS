@@ -72,6 +72,7 @@ const Billing = () => {
                     name: userInfo.name,
                   });
                   toast.success("your order created successfully");
+                  window.location.replace("/");
                 } else {
                   ///todo
                   //add online payment

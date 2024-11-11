@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { fetchUserInfo, updateUserInfoCartAndList } from "./store/userSlice";
+import Orders from "./pages/Orders";
 function App() {
   const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
         <Route path="/ShopAll/:category" element={<Shop />} />
         <Route path="/ShopAll/search/:q" element={<Shop />} />
         <Route path="/Billing" element={<Billing />} />
+        <Route path="/Orders" element={<Orders />} />
       </Routes>
       <Footer />
     </div>

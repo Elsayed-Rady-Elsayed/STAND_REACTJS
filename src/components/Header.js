@@ -54,6 +54,15 @@ const Header = () => {
                 </Link>
               </li>
               {user.user.id === undefined ? (
+                <></>
+              ) : (
+                <li>
+                  <Link to="/Orders" onClick={toggleMenu}>
+                    My Orders
+                  </Link>
+                </li>
+              )}
+              {user.user.id === undefined ? (
                 <li>
                   <Link to="/SignUp" onClick={toggleMenu}>
                     Sign Up
