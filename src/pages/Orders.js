@@ -1,18 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import Card from "../components/Card";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  Divider,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import Card from "../components/Card";
 import { updateUserInfoCartAndList } from "../store/userSlice";
 
 const Orders = () => {
@@ -45,7 +33,7 @@ const Orders = () => {
           Orders <span>({orders.user.orders?.length})</span>
         </span>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
         {orders.user.orders?.map((el, idx) => {
           let stars = [];
           const rating = el.rating?.rate ?? 0;
@@ -53,47 +41,22 @@ const Orders = () => {
             index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
           }
           return (
-            <div>
-              <Card
-                w={"40vw"}
-                direction={{ base: "column", sm: "row" }}
-                overflow="hidden"
-                variant="outline"
-              >
-                <Image
-                  objectFit="contain"
-                  maxW={{ base: "100%", sm: "200px" }}
-                  src={el.image}
-                  alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">{el.title}</Heading>
-
-                    <Text align={"start"} px="3" py="2">
-                      ${el.price * el.quantity}
-                    </Text>
-                    <Text align={"start"} px="3" py="2">
-                      {el.quantity} items
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <button
-                      className="bg-red-500 p-2 rounded-md text-white"
-                      onClick={() => {
-                        handleChangeDataToCart(el);
-                        window.location.reload();
-                      }}
-                      variant="solid"
-                      colorScheme="red"
-                    >
-                      delete order
-                    </button>
-                  </CardFooter>
-                </Stack>
-              </Card>
+            <div className="flex items-center w-full gap-2">
+              <img src={el.image} className="w-44" alt="" />
+              <div className="w-full text-start flex flex-col justify-between">
+                <p>{el.title}</p>
+                <p>{el.quantity} items</p>
+                <p>${el.price * el.quantity}</p>
+                <button
+                  className="w-full bg-red-600 text-white p-2 rounded-md mt-2"
+                  onClick={() => {
+                    handleChangeDataToCart(el);
+                    window.location.reload();
+                  }}
+                >
+                  cancel order
+                </button>
+              </div>
             </div>
           );
         })}

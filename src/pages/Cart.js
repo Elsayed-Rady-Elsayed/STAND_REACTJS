@@ -163,14 +163,23 @@ const Cart = () => {
             </tr>
             <tr key="">
               <td colSpan="2" className="text-center py-3">
-                <Button
-                  colorScheme="red"
-                  onClick={() => {
-                    nav("/Billing", { state: { product: user.cart } });
-                  }}
-                >
-                  process to checkout
-                </Button>
+                {user.user.id ? (
+                  <Button
+                    colorScheme="red"
+                    onClick={() => {
+                      nav("/Billing", { state: { product: user.cart } });
+                    }}
+                  >
+                    process to checkout
+                  </Button>
+                ) : (
+                  <Link
+                    to={"/SignUp"}
+                    className="bg-red-500 p-2 text-white rounded-md"
+                  >
+                    login to precced
+                  </Link>
+                )}
               </td>
             </tr>
           </table>

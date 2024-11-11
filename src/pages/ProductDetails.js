@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import SectionHead from "../components/SectionHead";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../store/productSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addToWishList, updateUserInfoCartAndList } from "../store/userSlice";
 const ProductDetails = () => {
@@ -151,18 +151,27 @@ const ProductDetails = () => {
                 +
               </span>
             </div>
-            <Button
-              className=""
-              colorScheme="red"
-              width={"full"}
-              onClick={() => {
-                nav(`/Billing`, {
-                  state: { product: { ...singleProducts, quantity: count } },
-                });
-              }}
-            >
-              Buy Now
-            </Button>
+            {userInfo.user.id ? (
+              <Button
+                className=""
+                colorScheme="red"
+                width={"full"}
+                onClick={() => {
+                  nav(`/Billing`, {
+                    state: { product: { ...singleProducts, quantity: count } },
+                  });
+                }}
+              >
+                Buy Now
+              </Button>
+            ) : (
+              <Link
+                to={"/SignUp"}
+                className="bg-red-500 p-2 text-white rounded-md"
+              >
+                login to precced
+              </Link>
+            )}
             <span
               className="border flex items-center justify-center p-3 rounded-md w-fit cursor-pointer"
               onClick={() => {
