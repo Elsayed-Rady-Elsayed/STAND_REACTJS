@@ -40,7 +40,7 @@ const Billing = () => {
     }
   };
   return (
-    <div className="text-start md:w-[90%] w-full p-2 md:p-5 m-auto mt-10">
+    <div className="text-start md:w-[90%] w-full p-2 md:p-5 m-auto mt-10 my-10 md:my-0">
       <h3 className="text-3xl font-bold">billing detail</h3>
       <div className="flex justify-between md:flex-row flex-col">
         <div className="text-start">
@@ -190,7 +190,7 @@ const Billing = () => {
               </p>
             </Box>
             <RadioGroup
-              defaultValue="2"
+              defaultValue="cod"
               onChange={(e) => {
                 setSelectOpt(e);
               }}
