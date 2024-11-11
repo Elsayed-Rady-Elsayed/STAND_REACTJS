@@ -9,7 +9,7 @@ const WishList = () => {
     <div className="md:py-5 md:w-[90%] m-auto">
       <div className="header flex justify-between ">
         <span>
-          Wishlist <span>({WishList.length})</span>
+          Wishlist <span>({WishList.wishList.length})</span>
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">

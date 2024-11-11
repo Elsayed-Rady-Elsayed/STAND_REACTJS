@@ -64,6 +64,7 @@ const Header = () => {
                   className="cursor-pointer"
                   onClick={() => {
                     auth.signOut();
+                    window.location.href = "/";
                   }}
                 >
                   logout

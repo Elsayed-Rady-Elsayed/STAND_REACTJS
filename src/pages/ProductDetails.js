@@ -6,13 +6,15 @@ import SectionHead from "../components/SectionHead";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../store/productSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { addToWishList } from "../store/CartSlice";
 import { toast } from "react-toastify";
+import { addToWishList, updateUserInfoCartAndList } from "../store/userSlice";
 const ProductDetails = () => {
   window.scrollTo(0, 0);
   const { singleProducts, loading, error } = useSelector(
     (state) => state.product
   );
+  const userInfo = useSelector((state) => state.user);
+
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
@@ -25,6 +27,26 @@ const ProductDetails = () => {
   for (let index = 0; index < 5; index++) {
     index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
   }
+  const handleChangeDataToWishList = (item, isRemove) => {
+    let list = [...userInfo.wishList];
+    if (isRemove) {
+      const index = list.findIndex((product) => product.id === item.id);
+      if (index !== -1) list.splice(index, 1);
+    }
+    dispatch(
+      updateUserInfoCartAndList({
+        uid: window.localStorage.getItem("uid"),
+        newData: {
+          cart: userInfo.cart,
+          wishList: isRemove ? list : [...userInfo.wishList, item],
+          orders: userInfo.user.orders,
+          email: userInfo.user.email,
+          id: userInfo.user.id,
+          name: userInfo.user.name,
+        },
+      })
+    );
+  };
   return (
     <div className="md:w-[90%] m-auto text-start my-10 md:p-0 p-4">
       <p className="mb-10">
@@ -144,10 +166,9 @@ const ProductDetails = () => {
             <span
               className="border flex items-center justify-center p-3 rounded-md w-fit cursor-pointer"
               onClick={() => {
-                dispatch(
-                  addToWishList({ item: singleProducts, quantity: count })
-                );
+                dispatch(addToWishList({ item: singleProducts }));
                 toast.success("item added to wishList");
+                handleChangeDataToWishList(singleProducts, false);
               }}
             >
               <i className="fa-regular fa-heart fa-lg"></i>

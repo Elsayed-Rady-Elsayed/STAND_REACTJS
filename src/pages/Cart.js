@@ -4,18 +4,20 @@ import { Button, Input } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { removeFromCart, updateUserInfoCartAndList } from "../store/userSlice";
+import {
+  changeItemCartQuantity,
+  removeFromCart,
+  updateUserInfoCartAndList,
+} from "../store/userSlice";
 const Cart = () => {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const nav = useNavigate();
   const user = useSelector((state) => state.user);
 
-  const handleChangeDataToCart = (item, isRemove) => {
+  const handleChangeDataToCart = (item, isRemove, isEdit) => {
     let list = [...user.cart];
-    console.log(list);
-
-    if (isRemove) {
+    if (isRemove && !isEdit) {
       const index = list.findIndex((product) => product.id === item.id);
       if (index !== -1) list.splice(index, 1);
     }
@@ -23,7 +25,11 @@ const Cart = () => {
       updateUserInfoCartAndList({
         uid: window.localStorage.getItem("uid"),
         newData: {
-          cart: isRemove ? list : [...user.cart, item],
+          cart: isEdit
+            ? [...user.cart]
+            : isRemove
+            ? list
+            : [...user.cart, item],
           wishList: user.wishList,
           orders: user.user.orders,
           email: user.user.email,
@@ -61,7 +67,7 @@ const Cart = () => {
                           item: el,
                         })
                       );
-                      handleChangeDataToCart(el, true);
+                      handleChangeDataToCart(el, true, false);
                     }}
                     className="bg-red-500 absolute h-4 w-4 cursor-pointer rounded-full flex items-center justify-center text-white pb-1 -top-1 start-0"
                   >
@@ -81,12 +87,13 @@ const Cart = () => {
                         <div
                           onClick={() => {
                             setCount((prev) => prev + 1);
-                            // dispatch(
-                            //   changeQuantityCart({
-                            //     item: el,
-                            //     quantity: el.quantity + 1,
-                            //   })
-                            // );
+                            dispatch(
+                              changeItemCartQuantity({
+                                item: el,
+                                quantity: el.quantity + 1,
+                              })
+                            );
+                            handleChangeDataToCart(el, false, true);
                           }}
                         >
                           <i className="fa-solid fa-chevron-up"></i>
@@ -95,11 +102,13 @@ const Cart = () => {
                           onClick={() => {
                             if (el.quantity > 0) {
                               setCount((prev) => prev - 1);
-                              dispatch();
-                              // changeQuantityCart({
-                              //   item: el,
-                              //   quantity: el.quantity - 1,
-                              // })
+                              dispatch(
+                                changeItemCartQuantity({
+                                  item: el,
+                                  quantity: el.quantity - 1,
+                                })
+                              );
+                              handleChangeDataToCart(el, false, true);
                             }
                           }}
                         >

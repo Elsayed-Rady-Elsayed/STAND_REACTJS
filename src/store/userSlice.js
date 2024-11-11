@@ -64,6 +64,14 @@ export const userSlice = createSlice({
       );
       if (index !== -1) state.wishList.splice(index, 1);
     },
+    changeItemCartQuantity: (state, action) => {
+      const index = state.cart.findIndex(
+        (e) => e.id === action.payload.item.id
+      );
+      if (index != -1) {
+        state.cart[index]["quantity"] = action.payload.quantity;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -98,7 +106,12 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, addToWishList, removeFromWishList } =
-  userSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  addToWishList,
+  removeFromWishList,
+  changeItemCartQuantity,
+} = userSlice.actions;
 
 export default userSlice.reducer;
