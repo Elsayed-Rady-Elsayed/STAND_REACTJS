@@ -35,7 +35,21 @@ function App() {
       unSub();
     };
   }, []);
-  console.log(user);
+  //  useEffect(() => {
+  //    dispatch(
+  //      updateUserInfoCartAndList({
+  //        uid: user.user.id,
+  //        newData: {
+  //          cart: user.cart,
+  //          wishList: user.wishList,
+  //          orders: user.user.orders || [],
+  //          email: user.user.email || "",
+  //          id: user.user.id,
+  //          name: user.user.name || "",
+  //        },
+  //      })
+  //    );
+  //  }, [dispatch]);
 
   return (
     <div className="App overflow-hidden ">

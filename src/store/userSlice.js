@@ -1,22 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const fetchUserInfo = createAsyncThunk(
-  "UserInfoAsyncThunk/fetchUserInformation",
+  "userSlice/fetchUserInfo",
   async (uid) => {
     try {
       const docRef = doc(db, "users", uid);
       const response = await getDoc(docRef);
       if (response.exists()) {
         return response.data();
+      } else {
+        throw new Error("User not found");
       }
     } catch (e) {
-      return e.message;
+      throw new Error(e.message);
     }
   }
 );
 
+export const updateUserInfoCartAndList = createAsyncThunk(
+  "userSlice/updateUserInfo",
+  async ({ uid, newData }, { rejectWithValue }) => {
+    console.log(uid);
+
+    try {
+      const userDocRef = doc(db, "users", uid);
+      await updateDoc(userDocRef, newData);
+    } catch (e) {
+      console.error("Error updating data in Firebase:", e.message);
+      return rejectWithValue(e.message);
+    }
+  }
+);
 export const userSlice = createSlice({
   name: "userSlice",
   initialState: {
@@ -31,62 +47,55 @@ export const userSlice = createSlice({
       state.cart.push(action.payload.item);
     },
     removeFromCart: (state, action) => {
-      let indexOfProduct = state.cart.findIndex(
+      const index = state.cart.findIndex(
         (product) => product.id === action.payload.item.id
       );
-      if (indexOfProduct !== -1) {
-        state.cart.splice(indexOfProduct, 1);
-      }
-    },
-    changeQuantityCart: (state, action) => {
-      let indexOfProduct = state.cart.findIndex(
-        (p) => p.id === action.payload.item.id
-      );
-      state.cart[indexOfProduct].quantity = action.payload.quantity;
+      if (index !== -1) state.cart.splice(index, 1);
     },
     addToWishList: (state, action) => {
       state.wishList.push(action.payload.item);
     },
     removeFromWishList: (state, action) => {
-      let indexOfProduct = state.wishList.findIndex(
+      const index = state.wishList.findIndex(
         (product) => product.id === action.payload.item.id
       );
-      if (indexOfProduct !== -1) {
-        state.wishList.splice(indexOfProduct, 1);
-      }
-    },
-    changeWishList: (state, action) => {
-      let indexOfProduct = state.wishList.findIndex(
-        (p) => p.id === action.payload.item.id
-      );
-      state.wishList[indexOfProduct].quantity = action.payload.quantity;
+      if (index !== -1) state.wishList.splice(index, 1);
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInfo.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchUserInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
         state.user = action.payload;
-        state.cart = action.payload.cart;
-        state.wishList = action.payload.wishList;
+        state.cart = action.payload?.cart || [];
+        state.wishList = action.payload?.wishList || [];
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
-        state.error = action.payload;
         state.loading = false;
+        state.error = action.error.message;
+      });
+    builder
+      .addCase(updateUserInfoCartAndList.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserInfoCartAndList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart = action.payload?.cart || state.cart;
+        state.wishList = action.payload?.wishList || state.wishList;
+      })
+      .addCase(updateUserInfoCartAndList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
-export const {
-  removeFromWishList,
-  addToCart,
-  addToWishList,
-  changeQuantityCart,
-  changeWishList,
-  removeFromCart,
-} = userSlice.actions;
+
+export const { addToCart, removeFromCart, addToWishList, removeFromWishList } =
+  userSlice.actions;
+
 export default userSlice.reducer;

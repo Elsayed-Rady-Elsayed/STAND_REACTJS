@@ -53,7 +53,7 @@ const Header = () => {
                   About
                 </Link>
               </li>
-              {user.user === undefined ? (
+              {user.user.id === undefined ? (
                 <li>
                   <Link to="/SignUp" onClick={toggleMenu}>
                     Sign Up

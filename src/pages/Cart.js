@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import pcMonitor from "../assets/monitior.png";
 import { Button, Input } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, changeQuantityCart } from "../store/CartSlice";
 import { toast } from "react-toastify";
+import { removeFromCart, updateUserInfoCartAndList } from "../store/userSlice";
 const Cart = () => {
-  const cartList = useSelector((state) => state.user);
-  console.log(cartList.user.cart);
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const nav = useNavigate();
+  const user = useSelector((state) => state.user);
+
   return (
     <div className="md:w-[80%] px-2 m-auto md:py-10">
       <div className="text-start">
@@ -24,7 +24,7 @@ const Cart = () => {
             <td>quantitiy</td>
             <td>subtotal</td>
           </tr>
-          {cartList.user.cart.map((el) => {
+          {user.user.cart?.map((el) => {
             if (el.quantity === 0) {
               dispatch(removeFromCart({ item: el }));
               toast.success("item removed from cart");
@@ -58,12 +58,12 @@ const Cart = () => {
                         <div
                           onClick={() => {
                             setCount((prev) => prev + 1);
-                            dispatch(
-                              changeQuantityCart({
-                                item: el,
-                                quantity: el.quantity + 1,
-                              })
-                            );
+                            // dispatch(
+                            //   changeQuantityCart({
+                            //     item: el,
+                            //     quantity: el.quantity + 1,
+                            //   })
+                            // );
                           }}
                         >
                           <i className="fa-solid fa-chevron-up"></i>
@@ -72,12 +72,11 @@ const Cart = () => {
                           onClick={() => {
                             if (el.quantity > 0) {
                               setCount((prev) => prev - 1);
-                              dispatch(
-                                changeQuantityCart({
-                                  item: el,
-                                  quantity: el.quantity - 1,
-                                })
-                              );
+                              dispatch();
+                              // changeQuantityCart({
+                              //   item: el,
+                              //   quantity: el.quantity - 1,
+                              // })
                             }
                           }}
                         >
@@ -128,7 +127,7 @@ const Cart = () => {
                 <Button
                   colorScheme="red"
                   onClick={() => {
-                    nav("/Billing", { state: { product: cartList.user.cart } });
+                    nav("/Billing", { state: { product: user.user.cart } });
                   }}
                 >
                   process to checkout

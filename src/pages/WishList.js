@@ -1,12 +1,10 @@
-import { Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import Card from "../components/Card";
-import coat from "../assets/coat.png";
 import { useDispatch, useSelector } from "react-redux";
 
 const WishList = () => {
   const WishList = useSelector((state) => state.user);
-  console.log(WishList.user.wishList);
+  console.log(WishList);
 
   return (
     <div className="md:py-5 md:w-[90%] m-auto">
@@ -16,7 +14,7 @@ const WishList = () => {
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">
-        {WishList.user.wishList.map((el) => {
+        {WishList.user.wishList?.map((el) => {
           let stars = [];
           const rating = el.rating?.rate ?? 0;
           for (let index = 0; index < 5; index++) {
