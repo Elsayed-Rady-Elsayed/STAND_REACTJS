@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { db } from "../firebase";
 import { useSelector } from "react-redux";
 const Billing = () => {
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState();
   const [selectOpt, setSelectOpt] = useState();
   const location = useLocation();
   const cartAndWishList = useSelector((state) => state.user);
@@ -27,9 +27,9 @@ const Billing = () => {
   useEffect(() => {
     if (Array.isArray(product)) {
       setTotalPrice(
-        product.reduce((total, num) => {
-          return total.price + num.price * num.quantity;
-        })
+        product.reduce((total, el) => {
+          return total + el.price;
+        }, 0)
       );
     }
   }, []);

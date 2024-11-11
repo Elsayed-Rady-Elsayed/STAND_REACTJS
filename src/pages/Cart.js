@@ -44,6 +44,8 @@ const Cart = () => {
       })
     );
   };
+  console.log(user.cart);
+
   return (
     <div className="md:w-[80%] px-3 m-auto md:py-10">
       <div className="text-start">
