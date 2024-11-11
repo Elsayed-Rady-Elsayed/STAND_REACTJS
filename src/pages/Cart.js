@@ -24,7 +24,7 @@ const Cart = () => {
             <td>quantitiy</td>
             <td>subtotal</td>
           </tr>
-          {user.user.cart?.map((el) => {
+          {user.cart?.map((el) => {
             if (el.quantity === 0) {
               dispatch(removeFromCart({ item: el }));
               toast.success("item removed from cart");

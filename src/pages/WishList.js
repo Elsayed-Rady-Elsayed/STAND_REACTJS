@@ -14,7 +14,9 @@ const WishList = () => {
         </span>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">
-        {WishList.user.wishList?.map((el) => {
+        {WishList.wishList?.map((el) => {
+          console.log(el);
+
           let stars = [];
           const rating = el.rating?.rate ?? 0;
           for (let index = 0; index < 5; index++) {
