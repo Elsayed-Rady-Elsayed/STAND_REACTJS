@@ -1,6 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Card from "../components/Card";
+// import Card from "../components/Card";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 const Orders = () => {
   const orders = useSelector((state) => state.user);
@@ -21,18 +33,29 @@ const Orders = () => {
           }
           return (
             <div>
-              <Card
-                key={idx}
-                isRemove={true}
-                id={el.id}
-                image={el.image}
-                item={el}
-                title={el.title}
-                price={`$${el.price}`}
-                oldPrice={`${el.price}`}
-                stars={stars}
-                reviews={el.rating.count}
-              />
+              <Card maxW="sm">
+                <CardBody>
+                  <Image
+                    src={el.image}
+                    alt="Green double couch with wooden legs"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="sm">{el.title}</Heading>
+                    <Text color="blue.600" fontSize="2xl">
+                      {el.quantity} items = ${el.price * el.quantity}
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="red">
+                      delete order
+                    </Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
             </div>
           );
         })}
