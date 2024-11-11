@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import qr from "../assets/qr.png";
 import appstore from "../assets/appstore.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -47,19 +48,19 @@ const Footer = () => {
           <h3 className="font-bold text-lg">Account</h3>
           <ul className="flex flex-col gap-3">
             <li>
-              <a href="#">My Account</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="#">Login / Register</a>
+              <Link to="/SignUp">Login / Register</Link>
             </li>
             <li>
-              <a href="#">Cart</a>
+              <Link to="/cart">Cart</Link>
             </li>
             <li>
-              <a href="#">Wishlist</a>
+              <Link to="/favourits">Wishlist</Link>
             </li>
             <li>
-              <a href="#">Shop</a>
+              <Link to="/ShopAll">Shop</Link>
             </li>
           </ul>
         </div>
@@ -73,10 +74,10 @@ const Footer = () => {
               <a href="#">Terms of Use</a>
             </li>
             <li>
-              <a href="#">FAQ</a>
+              <Link to="/AboutUs">FAQ</Link>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <Link to="/ContactUs">Contact</Link>
             </li>
           </ul>
         </div>
