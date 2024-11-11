@@ -19,7 +19,7 @@ const Billing = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectOpt, setSelectOpt] = useState();
   const location = useLocation();
-  const cartAndWishList = useSelector((state) => state.cart);
+  const cartAndWishList = useSelector((state) => state.user);
   const userInfo = useSelector((state) => state.user.user);
   const product = location.state.product;
   useEffect(() => {
