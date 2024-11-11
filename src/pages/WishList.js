@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const WishList = () => {
   const WishList = useSelector((state) => state.user);
-  console.log(WishList);
-
   return (
     <div className="md:py-5 md:w-[90%] m-auto">
       <div className="header flex justify-between ">
@@ -15,8 +13,6 @@ const WishList = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mt-5">
         {WishList.wishList?.map((el) => {
-          console.log(el);
-
           let stars = [];
           const rating = el.rating?.rate ?? 0;
           for (let index = 0; index < 5; index++) {
