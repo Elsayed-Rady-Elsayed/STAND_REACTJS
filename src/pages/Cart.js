@@ -85,7 +85,7 @@ const Cart = () => {
                     {el.title}
                   </p>
                 </td>
-                <td className="font-bold">${el.price * el.quantity}</td>
+                <td className="font-bold">${el.price}</td>
                 <td className="">
                   <div className=" flex justify-center">
                     <div className="flex w-fit border md:p-2 p-1 rounded items-center justify-center gap-3 ">
@@ -126,7 +126,7 @@ const Cart = () => {
                   </div>
                 </td>
                 <td className="font-bold">
-                  ${Math.round(el.price * el.quantity + 22)}
+                  ${Math.round(el.price * el.quantity)}
                 </td>
               </tr>
             );

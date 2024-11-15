@@ -8,6 +8,7 @@ import {
   addToCart,
   addToWishList,
   fetchUserInfo,
+  removeFromCart,
   removeFromWishList,
   updateUserInfoCartAndList,
 } from "../store/userSlice";
@@ -42,8 +43,20 @@ const Card = ({
     },
   };
   const userInfo = useSelector((state) => state.user);
-  // console.log(userInfo);
-
+  const isInWishList = (item) => {
+    const idx = userInfo.wishList.findIndex((i) => i.id === item.id);
+    if (idx === -1) {
+      return false;
+    }
+    return true;
+  };
+  const isInCart = (item) => {
+    const idx = userInfo.cart.findIndex((i) => i.id === item.id);
+    if (idx === -1) {
+      return false;
+    }
+    return true;
+  };
   const handleChangeDataToCart = (item) => {
     dispatch(
       updateUserInfoCartAndList({
@@ -105,15 +118,21 @@ const Card = ({
           />
         ) : (
           <RoundedIconBtn
-            bg={"[#F5F5F5]"}
+            bg={isInWishList(item) ? "green-400" : "[#F5F5F5]"}
             icon={"heart"}
             size={"lg"}
-            color={"#000000"}
+            color={isInWishList(item) ? "white" : "#000000"}
             aria-label="Add to wishlist"
             handleClick={() => {
-              dispatch(addToWishList({ item: item }));
-              toast.success("item added to wishList");
-              handleChangeDataToWishList(item, false);
+              if (!isInWishList(item)) {
+                dispatch(addToWishList({ item: item }));
+                toast.success("item added to wishList");
+                handleChangeDataToWishList(item, false);
+              } else {
+                dispatch(removeFromWishList({ item: item }));
+                toast.success("item removed from wishList");
+                handleChangeDataToWishList(item, true);
+              }
             }}
           />
         )}
@@ -145,12 +164,17 @@ const Card = ({
             className="bg-black text-white w-full p-2 absolute bottom-0 cursor-pointer hidden"
             ref={cardRef}
             onClick={() => {
-              dispatch(addToCart({ item: { ...item, quantity: 1 } }));
-              toast.success("item added to cart");
-              handleChangeDataToCart({ ...item, quantity: 1 });
+              if (!isInCart(item)) {
+                dispatch(addToCart({ item: { ...item, quantity: 1 } }));
+                toast.success("item added to cart");
+                handleChangeDataToCart({ ...item, quantity: 1 });
+              } else {
+                dispatch(removeFromCart({ item: item }));
+                toast.success("item removed from cart");
+              }
             }}
           >
-            Add to cart
+            {!isInCart(item) ? "Add to cart" : "remove from cart"}
           </motion.div>
         </div>
 
