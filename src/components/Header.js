@@ -25,7 +25,9 @@ const Header = () => {
   return (
     <header className="border-b border-gray-200 relative">
       <div className="flex justify-between items-center md:p-5 py-2 px-2 md:px-0 md:w-[90%] m-auto">
-        <div className="logo font-bold text-2xl">Exclusive</div>
+        <div className="logo font-bold text-2xl">
+          <Link to={"/"}>Exclusive</Link>
+        </div>
 
         <span className="block md:hidden" onClick={toggleMenu}>
           <HamburgerIcon />
