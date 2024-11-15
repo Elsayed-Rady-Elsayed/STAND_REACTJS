@@ -131,7 +131,7 @@ const Card = ({
 
       {label && <Label text={label} bg={"[#00FF66]"} />}
 
-      <div className="flex flex-col justify-between gap-1 cursor-pointer">
+      <div className="flex flex-col justify-between gap-1 cursor-pointer text-center">
         <div className="bg-white  w-full h-[270px] flex items-center justify-center relative">
           <img
             src={image}

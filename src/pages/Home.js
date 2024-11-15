@@ -180,7 +180,7 @@ const Home = () => {
       <div className="md:my-[3rem] my-[1rem] md:p-0 p-2">
         <SectionHead title={"Explore Our Products"} />
         {window.innerWidth > 980 ? (
-          <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-5  mb-[3rem]">
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-6 gap-5  mb-[3rem]">
             {product.map((el, idx) => {
               let stars = [];
               const rating = el.rating?.rate ?? 0;
