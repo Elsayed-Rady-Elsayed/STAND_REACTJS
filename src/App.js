@@ -21,6 +21,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { fetchUserInfo, updateUserInfoCartAndList } from "./store/userSlice";
 import Orders from "./pages/Orders";
+import { loadStripe } from "react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 function App() {
   const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -38,7 +40,9 @@ function App() {
       unSub();
     };
   }, []);
-
+  const stripePromise = loadStripe(
+    "pk_test_51QLQvdEQbX972pXlwMthuEaEsYT47INSGHvYb4WiedpEf0nO46ArzUA6eIWUdPAmSRcv3kMuFdKAicd5hwZ23lyU00B06Z7oB0"
+  );
   return (
     <div className="App overflow-hidden ">
       <Notification />
@@ -58,7 +62,14 @@ function App() {
         <Route path="/ShopAll" element={<Shop />} />
         <Route path="/ShopAll/:category" element={<Shop />} />
         <Route path="/ShopAll/search/:q" element={<Shop />} />
-        <Route path="/Billing" element={<Billing />} />
+        <Route
+          path="/Billing"
+          element={
+            <Elements stripe={stripePromise}>
+              <Billing />
+            </Elements>
+          }
+        />
         <Route path="/Orders" element={<Orders />} />
       </Routes>
       <Footer />

@@ -71,8 +71,8 @@ const Shop = () => {
         <div className="flex items-center gap-3">
           <p>Filter:</p>{" "}
           <Select placeholder="Sort By" onChange={handleChangeSorting}>
-            <option value="plth">price low to high</option>
-            <option value="phtl">price high to low</option>
+            <option value="plth">price high to low</option>
+            <option value="phtl">price low to high</option>
             <option value="aatz">alphapeticaly a to z</option>
             <option value="azta">alphapeticaly z to a</option>
             <option value="rev">reviews</option>
@@ -95,7 +95,7 @@ const Shop = () => {
           </Select>
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3">
         {!error &&
           !loading &&
           viewList.map((el, idx) => {

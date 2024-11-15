@@ -11,6 +11,7 @@ const Orders = () => {
     let list = [...user.user.orders];
     const index = list.findIndex((product) => product.id === item.id);
     if (index !== -1) list.splice(index, 1);
+    console.log(list);
 
     dispatch(
       updateUserInfoCartAndList({
@@ -25,6 +26,9 @@ const Orders = () => {
         },
       })
     );
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
   return (
     <div className="md:py-5 px-3 md:px-0 md:w-[90%] m-auto min-h-[40vh]">
@@ -41,8 +45,8 @@ const Orders = () => {
             index < Math.round(Number(rating)) ? stars.push(1) : stars.push(0);
           }
           return (
-            <div className="flex items-center w-full gap-2">
-              <img src={el.image} className="w-44" alt="" />
+            <div key={idx} className="flex items-center w-full gap-2">
+              <img src={el.image} className="w-44 h-44 object-contain" alt="" />
               <div className="w-full text-start flex flex-col justify-between">
                 <p>{el.title}</p>
                 <p>{el.quantity} items</p>
@@ -51,7 +55,6 @@ const Orders = () => {
                   className="w-full bg-red-600 text-white p-2 rounded-md mt-2"
                   onClick={() => {
                     handleChangeDataToCart(el);
-                    window.location.reload();
                   }}
                 >
                   cancel order

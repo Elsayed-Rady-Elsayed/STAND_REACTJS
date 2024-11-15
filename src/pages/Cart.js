@@ -16,7 +16,7 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const calcTotal = () => {
     const total = user.cart.reduce((total, el) => {
-      return total + el.price;
+      return total + el.price * el.quantity;
     }, 0);
     return total;
   };

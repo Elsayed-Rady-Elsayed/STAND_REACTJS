@@ -86,13 +86,13 @@ const Card = ({
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      className="relative max-w-[250px] min-h-[370px] px-1"
+      className="relative shadow-md my-2 rounded-md md:mx-2 max-w-[250px] min-h-[370px] px-1"
       onClick={toggleCartVisibility}
     >
       <div className="absolute end-3 top-5 flex flex-col gap-4 z-50">
         {isRemove ? (
           <RoundedIconBtn
-            bg={"white"}
+            bg={"[#F5F5F5]"}
             icon={"trash-can"}
             size={"lg"}
             color={"#000000"}
@@ -105,7 +105,7 @@ const Card = ({
           />
         ) : (
           <RoundedIconBtn
-            bg={"white"}
+            bg={"[#F5F5F5]"}
             icon={"heart"}
             size={"lg"}
             color={"#000000"}
@@ -119,7 +119,7 @@ const Card = ({
         )}
         <Link to={`/productDetails/${id}`}>
           <RoundedIconBtn
-            bg={"white"}
+            bg={"[#F5F5F5]"}
             icon={"eye"}
             size={"lg"}
             color={"#000000"}
@@ -132,11 +132,11 @@ const Card = ({
       {label && <Label text={label} bg={"[#00FF66]"} />}
 
       <div className="flex flex-col justify-between gap-1 cursor-pointer">
-        <div className="bg-[#F5F5F5] w-full h-[270px] flex items-center justify-center relative">
+        <div className="bg-white  w-full h-[270px] flex items-center justify-center relative">
           <img
             src={image}
             alt={title}
-            className="object-contain w-52 h-52"
+            className="object-contain w-52 h-48"
             loading="lazy"
           />
           <motion.div
@@ -154,7 +154,7 @@ const Card = ({
           </motion.div>
         </div>
 
-        <p className="font-bold capitalize line-clamp-2">{title}</p>
+        <p className="font-bold capitalize line-clamp-1">{title}</p>
 
         <div>
           <span className="text-red-600 font-bold mr-2">{price}</span>
